@@ -33,6 +33,13 @@ export default function PortalsSection() {
 
   return (
     <section className="py-20 px-4 relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 -translate-y-1/2">
+        <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent shadow-[0_0_28px_rgba(212,175,55,0.45)]" />
+        <div className="absolute left-1/2 top-1/2 h-20 w-[min(820px,88vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.18),rgba(212,175,55,0.06)_42%,transparent_72%)] blur-xl" />
+        <div className="absolute left-1/2 top-1/2 h-1 w-[min(560px,72vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-transparent via-gold-light/80 to-transparent" />
+        <div className="absolute left-1/2 top-[calc(50%+1.5rem)] h-12 w-px -translate-x-1/2 bg-gradient-to-b from-gold/70 to-transparent shadow-[0_0_18px_rgba(212,175,55,0.45)]" />
+      </div>
+
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-gold rounded-full mix-blend-screen filter blur-3xl"></div>

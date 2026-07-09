@@ -19,22 +19,22 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-navy/80 backdrop-blur-md border-b border-gold/20">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between gap-8">
+      <div className="container mx-auto px-4 py-5">
+        <div className="flex min-h-12 items-center justify-between gap-8">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <div className="text-2xl font-bold gradient-text">
+          <Link href="/" className="flex flex-shrink-0 items-center py-1">
+            <div className="text-2xl font-bold leading-none gradient-text">
               evangelho.wiki
             </div>
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden items-center gap-8 lg:flex">
             {menuItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-gray-300 hover:text-gold transition-colors duration-200"
+                className="flex items-center text-sm font-medium text-gray-300 hover:text-gold transition-colors duration-200"
               >
                 {item.name}
               </Link>
@@ -44,14 +44,14 @@ export default function Header() {
           {/* Actions */}
           <div className="flex items-center gap-4">
             {/* Search Icon */}
-            <button className="p-2 rounded-lg hover:bg-navy-light transition-colors duration-200">
+            <button className="flex items-center justify-center p-2 rounded-lg hover:bg-navy-light transition-colors duration-200">
               <Search size={20} className="text-gold" />
             </button>
 
             {/* Theme Toggle */}
             <button
               onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-lg hover:bg-navy-light transition-colors duration-200"
+              className="flex items-center justify-center p-2 rounded-lg hover:bg-navy-light transition-colors duration-200"
             >
               {isDark ? (
                 <Sun size={20} className="text-gold" />
@@ -61,14 +61,14 @@ export default function Header() {
             </button>
 
             {/* Sign In Button */}
-            <button className="hidden md:block px-4 py-2 rounded-lg bg-gradient-to-r from-gold to-gold-light text-navy font-semibold hover:shadow-glow-gold transition-all duration-200">
+            <button className="hidden items-center px-4 py-2 rounded-lg bg-gradient-to-r from-gold to-gold-light text-navy font-semibold hover:shadow-glow-gold transition-all duration-200 md:flex">
               Entrar
             </button>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-navy-light transition-colors duration-200"
+              className="flex items-center justify-center p-2 rounded-lg hover:bg-navy-light transition-colors duration-200 lg:hidden"
             >
               <svg
                 className="w-6 h-6"
