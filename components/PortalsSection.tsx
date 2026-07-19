@@ -12,6 +12,9 @@ export default function PortalsSection() {
       href: '/antigo-testamento',
       color: 'gold' as const,
       icon: '📜',
+      imageSrc: '/images/portals/antigo-testamento.jpeg',
+      imageAlt: 'Prévia visual da área Antigo Testamento',
+      ctaLabel: 'Abrir estudos do Antigo Testamento',
     },
     {
       number: '02',
@@ -20,6 +23,9 @@ export default function PortalsSection() {
       href: '/novo-testamento',
       color: 'purple' as const,
       icon: '✨',
+      imageSrc: '/images/portals/novo-testamento.png',
+      imageAlt: 'Prévia visual da área Novo Testamento',
+      ctaLabel: 'Abrir estudos do Novo Testamento',
     },
     {
       number: '03',
@@ -28,11 +34,14 @@ export default function PortalsSection() {
       href: '/contemporaneidade',
       color: 'crimson' as const,
       icon: '🌍',
+      imageSrc: '/images/portals/contemporaneidade.png',
+      imageAlt: 'Prévia visual da área Contemporaneidade',
+      ctaLabel: 'Abrir estudos de Contemporaneidade',
     },
   ];
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
+    <section className="relative overflow-hidden px-4 pb-16 pt-10 md:pt-12">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 -translate-y-1/2">
         <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent shadow-[0_0_28px_rgba(212,175,55,0.45)]" />
         <div className="absolute left-1/2 top-1/2 h-20 w-[min(820px,88vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.18),rgba(212,175,55,0.06)_42%,transparent_72%)] blur-xl" />
@@ -42,24 +51,24 @@ export default function PortalsSection() {
 
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-gold rounded-full mix-blend-screen filter blur-3xl"></div>
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-purple rounded-full mix-blend-screen filter blur-3xl animate-pulse-glow"></div>
+        <div className="absolute top-1/2 left-1/4 h-64 w-64 rounded-full bg-gold mix-blend-screen blur-3xl"></div>
+        <div className="absolute top-1/2 right-1/4 h-64 w-64 rounded-full bg-purple mix-blend-screen blur-3xl animate-pulse-glow"></div>
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+        <div className="mx-auto mb-8 max-w-3xl text-center">
+          <h2 className="mb-3 text-2xl font-bold md:text-3xl lg:text-4xl">
             Sua Jornada Espiritual
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-gray-300 md:text-base">
             Escolha seu caminho e mergulhe nas três dimensões principais das
             Escrituras
           </p>
         </div>
 
         {/* Portals Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {portals.map((portal) => (
             <PortalCard
               key={portal.title}
@@ -67,6 +76,9 @@ export default function PortalsSection() {
               title={portal.title}
               subtitle={portal.subtitle}
               href={portal.href}
+              imageSrc={portal.imageSrc}
+              imageAlt={portal.imageAlt}
+              ctaLabel={portal.ctaLabel}
               color={portal.color}
               icon={portal.icon}
             />
@@ -74,8 +86,8 @@ export default function PortalsSection() {
         </div>
 
         {/* Timeline line visualization */}
-        <div className="mt-20 pt-20 border-t border-gold/20">
-          <h3 className="text-2xl font-bold text-center mb-12">
+        <div className="mt-14 border-t border-gold/20 pt-12">
+          <h3 className="mb-10 text-center text-2xl font-bold">
             A Linha do Tempo do Evangelho
           </h3>
 

@@ -20,10 +20,10 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-navy/80 backdrop-blur-md border-b border-gold/20">
       <div className="container mx-auto px-4 py-5">
-        <div className="flex min-h-12 items-center justify-between gap-8">
+        <div className="flex min-h-12 items-center justify-between gap-4 lg:gap-8">
           {/* Logo */}
-          <Link href="/" className="flex flex-shrink-0 items-center py-1">
-            <div className="text-2xl font-bold leading-none gradient-text">
+          <Link href="/" className="flex flex-shrink-0 items-center py-1 pr-3">
+            <div className="whitespace-nowrap text-lg font-bold leading-none text-gold sm:text-xl md:text-2xl">
               evangelho.wiki
             </div>
           </Link>
@@ -42,7 +42,7 @@ export default function Header() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-shrink-0 items-center gap-2 sm:gap-4">
             {/* Search Icon */}
             <button className="flex items-center justify-center p-2 rounded-lg hover:bg-navy-light transition-colors duration-200">
               <Search size={20} className="text-gold" />

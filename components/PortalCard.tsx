@@ -8,6 +8,9 @@ interface PortalCardProps {
   title: string;
   subtitle: string;
   href: string;
+  imageSrc: string;
+  imageAlt: string;
+  ctaLabel: string;
   icon?: React.ReactNode;
   color?: 'gold' | 'purple' | 'crimson';
 }
@@ -17,6 +20,9 @@ export default function PortalCard({
   title,
   subtitle,
   href,
+  imageSrc,
+  imageAlt,
+  ctaLabel,
   icon,
   color = 'gold',
 }: PortalCardProps) {
@@ -55,50 +61,60 @@ export default function PortalCard({
   }
 
   return (
-    <Link href={href} className="group">
+    <Link href={href} className="group block h-full" aria-label={`Abrir ${title}`}>
       <div
-        className={`relative overflow-hidden rounded-[2rem] border-2 bg-navy-light/20 backdrop-blur-xl transition-all duration-300 cursor-pointer ${classes.cardBorder} ${classes.glow} hover:scale-[1.02] hover:border-opacity-100 hover:shadow-[0_40px_120px_rgba(255,255,255,0.14)]`}
+        className={`relative flex h-full min-h-[230px] overflow-hidden rounded-lg border bg-navy-light/35 backdrop-blur-xl transition-all duration-300 cursor-pointer ${classes.cardBorder} ${classes.glow} hover:-translate-y-1 hover:border-opacity-100`}
       >
         <div className={`absolute inset-0 ${classes.gradient} opacity-90 pointer-events-none`} />
         <div className={`absolute inset-0 ${classes.overlay} pointer-events-none`} />
         <div className={`absolute ${classes.extra1} pointer-events-none`} />
         <div className={`absolute ${classes.extra2} pointer-events-none`} />
-        <div className="relative z-10 p-8 min-h-[320px] flex flex-col justify-between">
-          <div className="flex items-center justify-between gap-4 mb-8">
-            <span className={`inline-flex items-center justify-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${classes.numberBg}`}>
-              {number}
-            </span>
-            <div className={`inline-flex h-14 w-14 items-center justify-center rounded-3xl ${classes.iconBg} text-2xl shadow-lg shadow-black/10`}> 
+        <div className="relative z-10 grid w-full grid-cols-[112px_1fr] gap-4 p-4 sm:grid-cols-[128px_1fr]">
+          <div className="relative overflow-hidden rounded-lg border border-white/10 bg-navy">
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              className="h-full min-h-[196px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+            <div className={`absolute left-2 top-2 inline-flex h-9 w-9 items-center justify-center rounded-lg ${classes.iconBg} text-xl shadow-lg shadow-black/20`}>
               {icon}
             </div>
           </div>
 
-          <div>
-            <h3 className="text-3xl font-bold text-white mb-3 leading-tight">
-              {title}
-            </h3>
-            <p className="text-sm md:text-base text-gray-300 leading-relaxed">
-              {subtitle}
-            </p>
-          </div>
+          <div className="flex min-w-0 flex-col justify-between py-1">
+            <div>
+              <span className={`mb-3 inline-flex items-center justify-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] ${classes.numberBg}`}>
+                {number}
+              </span>
 
-          <div className="mt-8 flex items-center gap-3 text-sm font-semibold text-white/90 group-hover:text-white">
-            <span className={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 ${classes.accent}`}>
-              Explorar
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </span>
+              <h3 className="mb-2 text-xl font-bold leading-tight text-white sm:text-2xl">
+                {title}
+              </h3>
+              <p className="text-sm leading-relaxed text-gray-300">
+                {subtitle}
+              </p>
+            </div>
+
+            <div className="mt-5 flex items-center gap-3 text-sm font-semibold text-white/90 group-hover:text-white">
+              <span className={`inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 underline decoration-transparent underline-offset-4 transition-colors duration-200 group-hover:decoration-current ${classes.accent}`}>
+                {ctaLabel}
+                <svg
+                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
