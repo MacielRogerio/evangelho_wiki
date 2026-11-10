@@ -3,9 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "node server.mjs",
-    "start": "node server.mjs",
-    "test:browser": "node scripts/validate-sections.mjs"
+    "dev": "node --env-file-if-exists=.env server.mjs",
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "test:browser": "node scripts/validate-sections.mjs",
+    "mail:local": "node --env-file-if-exists=.env scripts/local-mail.mjs",
+    "test:membership": "node --test tests/membership.test.mjs"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  }
 }

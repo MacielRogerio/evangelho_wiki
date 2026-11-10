@@ -1,0 +1,52 @@
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {mkdtemp,rm} from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {createApplication} from '../server.mjs';
+import {membershipConfig} from '../backend/membership.mjs';
+const require=createRequire(import.meta.url);
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'/home/rogerio-maciel/.npm/_npx/e41f203b7505f1fb/node_modules/playwright');
+const directory=await mkdtemp(path.join(os.tmpdir(),'evangelho-members-ui-'));
+const config=membershipConfig({APP_ORIGIN:'http://localhost',ADMIN_EMAIL:'admin@example.test',DATA_DIR:directory});
+const {server,membership}=createApplication({config});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));config.origin=`http://127.0.0.1:${server.address().port}`;
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/home/rogerio-maciel/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome',headless:true});
+const admin=await browser.newPage({viewport:{width:1536,height:864}});
+const context=await browser.newContext({viewport:{width:1536,height:864}}),person=await context.newPage();
+const errors=[];for(const p of [admin,person])p.on('pageerror',error=>errors.push(error.message));
+const link=email=>membership.store.db.prepare('SELECT link FROM mail WHERE recipient=? AND link IS NOT NULL ORDER BY rowid DESC LIMIT 1').get(email).link;
+async function authenticate(page,email) {
+ await page.goto(config.origin);await page.locator('.login').click();await page.locator('#member-email').fill(email);await page.locator('[data-auth] [type=submit]').click();await page.getByRole('heading',{name:'Confira seu e-mail'}).waitFor();await page.goto(link(email));await page.getByRole('button',{name:'Confirmar e continuar'}).click();
+}
+try {
+ await person.goto(config.origin);await person.locator('.login').click();
+ assert(await person.locator('.member-dialog').isVisible());assert.equal(await person.locator('.member-dialog').evaluate(e=>e.contains(document.activeElement)),true);
+ await person.getByRole('button',{name:'Solicitar cadastro',exact:true}).click();
+ await person.screenshot({path:'artifacts/membership-registration-desktop.png'});
+ await person.locator('#member-email').fill('student@example.test');await person.locator('#member-interests').fill('<img src=x onerror=alert(1)> Gostaria de estudar as parábolas.');
+ await person.getByRole('button',{name:'Enviar solicitação'}).click();await person.getByRole('heading',{name:'Confira seu e-mail'}).waitFor();
+ await person.goto(link('student@example.test'));await person.getByRole('button',{name:'Confirmar e continuar'}).click();await person.getByRole('heading',{name:'Sua solicitação está em análise'}).waitFor();
+ assert.equal(new URL(person.url()).hash,'');assert.equal(await person.locator('.member-curiosities img').count(),0);
+ await person.screenshot({path:'artifacts/membership-pending.png'});
+ assert.equal(await person.evaluate(async()=> (await fetch('/api/materials')).status),403);
+ await authenticate(admin,'admin@example.test');await admin.getByRole('heading',{name:'Solicitações e associados'}).waitFor();
+ assert.equal(await admin.locator('.member-application img').count(),0);
+ await admin.screenshot({path:'artifacts/membership-admin-desktop.png'});
+ await admin.getByRole('button',{name:'Aprovar',exact:true}).click();await admin.getByRole('button',{name:'Suspender',exact:true}).waitFor();
+ await admin.locator('#material-title').fill('Introdução às parábolas');await admin.locator('#material-description').fill('Material de teste do fluxo de publicação.');
+ await admin.locator('#material-file').setInputFiles({name:'estudo.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.4\nFixture de teste\n%%EOF')});
+ await admin.getByRole('button',{name:'Publicar para associados'}).click();await admin.getByRole('button',{name:'Arquivar',exact:true}).waitFor();
+ await person.getByRole('button',{name:'Atualizar situação'}).click();await person.getByRole('link',{name:'Baixar PDF'}).waitFor();
+ const downloadEvent=person.waitForEvent('download');await person.getByRole('link',{name:'Baixar PDF'}).click();assert.match((await downloadEvent).suggestedFilename(),/\.pdf$/);
+ await person.screenshot({path:'artifacts/membership-library.png'});
+ await admin.setViewportSize({width:390,height:844});await admin.screenshot({path:'artifacts/membership-admin-mobile.png',fullPage:true});
+ assert(await admin.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await person.setViewportSize({width:390,height:844});assert(await person.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await person.getByRole('button',{name:'Sair',exact:true}).click();await person.getByRole('button',{name:'Solicitar cadastro',exact:true}).click();await person.screenshot({path:'artifacts/membership-registration-mobile.png'});
+ assert(await person.locator('.member-dialog').evaluate(e=>e.scrollWidth<=e.clientWidth));
+ await person.keyboard.press('Escape');assert.equal(await person.locator('.member-dialog').isVisible(),false);
+ await admin.getByRole('button',{name:'Suspender',exact:true}).click();await admin.getByRole('button',{name:'Reativar'}).waitFor();
+ await person.goto(config.origin+'/administracao');await person.getByRole('heading',{name:'Entre com seu e-mail de administrador'}).waitFor();
+ assert.deepEqual(errors,[]);console.log('PASS: registration, mail confirmation, pending, admin approval, PDF upload/download, suspension, privacy escaping, responsive forms and keyboard dialog; no JS errors.');
+}finally {await browser.close();await new Promise(r=>server.close(r));membership.close();await rm(directory,{recursive:true,force:true});}

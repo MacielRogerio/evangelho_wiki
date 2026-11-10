@@ -4,3 +4,6 @@ node_modules/
 !.env.example
 .DS_Store
 *.log
+
+# Cadastros, sessões, e-mails locais e PDFs privados
+.private/

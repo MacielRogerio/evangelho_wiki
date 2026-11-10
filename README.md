@@ -69,7 +69,7 @@ O repositório original tinha apenas imagens, sem artigos, rotas, autenticação
 
 - As **18 coleções**, os **três estudos completos** e seus **nove tópicos** aguardam conteúdo editorial. Os títulos e resumos das referências já estão cadastrados.
 - Recursos e Sobre; dicionário, mapas, perguntas e respostas; contato, termos de uso e política de privacidade aguardam conteúdo. Seus destinos apresentam indisponibilidade com retorno.
-- Entrar, troca de tema, redes sociais e e-mail aguardam integração; os controles informam essa condição.
+- Troca de tema e redes sociais aguardam integração; os controles informam essa condição. O cadastro e o acesso por Entrar estão implementados; o envio de e-mails reais requer a configuração descrita em MEMBERSHIP.md.
 - Os três vídeos e o catálogo de tutoriais da tela inicial continuam sem URLs.
 - A busca atual é local e cobre os metadados cadastrados; pesquisa em textos bíblicos e artigos depende desses conteúdos ou de um serviço de pesquisa.
 
@@ -90,3 +90,17 @@ O teste está em `scripts/validate-sections.mjs`. Nesta máquina usa a instalaç
 ```bash
 TEST_URL=http://localhost:5173 npm run test:browser
 ```
+
+## Trilha dourada da Bíblia
+
+No menu principal em desktop, entrar com o ponteiro sobre a Bíblia inicia uma sequência de 3,4 segundos: origem na dobra, chegada a Jesus em 1180 ms, pulso central e bifurcação a partir de 1380 ms. A saída do ponteiro não interrompe a sequência; outra entrada após o término permite repetir. O SVG acompanha a mesma escala da paisagem e não intercepta links. A navegação desmonta o controlador e cancela seu quadro pendente.
+
+Com movimento reduzido, há apenas um realce breve dos quatro pontos, sem deslocamento. Na composição móvel existente a Bíblia não aparece: o efeito e sua área de ativação ficam ocultos, preservando os cartões e a navegação no primeiro toque. Referência visual: `ImagensDiversas/gemini_generated_video_702880C6.MP4`, comparada em reprodução local. O rastro usa núcleo branco quente, névoa dourada, filamentos e poeira luminosa distribuída. As duas metades de uma mesma elipse formam um arco contínuo entre os portais laterais, com intensidade uniforme e dissipação no lugar após a chegada.
+
+Validação específica: `TEST_URL=http://localhost:5173 node scripts/validate-golden-light.mjs`. Confere a ordem temporal, conclusão após saída, repetição, ausência de loop, redimensionamento, movimento reduzido e links por toque. Capturas em `artifacts/golden-light-*.png`.
+
+## Área de associados
+
+O botão **Entrar** agora oferece cadastro por e-mail e curiosidades, confirmação por link e aprovação administrativa. A biblioteca de PDFs e os downloads são protegidos no servidor. O painel `/administracao` permite aprovar, recusar, suspender e reativar cadastros, publicar PDFs e arquivar materiais.
+
+Configure `.env` a partir de `.env.example`, incluindo `ADMIN_EMAIL`. No modo local, as mensagens ficam na caixa do terminal (`npm run mail:local`); não há envio real até configurar o provedor. Instruções completas de teste, hospedagem, envio e backup em [MEMBERSHIP.md](MEMBERSHIP.md). Requer Node.js 22.13+; recomendado 24.
