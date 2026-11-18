@@ -7,7 +7,8 @@
     "start": "node --env-file-if-exists=.env server.mjs",
     "test:browser": "node scripts/validate-sections.mjs",
     "mail:local": "node --env-file-if-exists=.env scripts/local-mail.mjs",
-    "test:membership": "node --test tests/membership.test.mjs"
+    "test:membership": "node --test tests/membership.test.mjs",
+    "test:books": "node scripts/validate-books.mjs"
   },
   "type": "module",
   "engines": {

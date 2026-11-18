@@ -67,11 +67,11 @@ Limitações que permanecem:
 
 O repositório original tinha apenas imagens, sem artigos, rotas, autenticação, serviço de busca ou vídeos. Não foram inventados textos completos nem destinos externos.
 
-- As **18 coleções**, os **três estudos completos** e seus **nove tópicos** aguardam conteúdo editorial. Os títulos e resumos das referências já estão cadastrados.
+- As **17 coleções restantes**, os **três estudos em destaque completos** e seus **nove tópicos** aguardam conteúdo editorial. Os títulos e resumos das referências já estão cadastrados.
 - Recursos e Sobre; dicionário, mapas, perguntas e respostas; contato, termos de uso e política de privacidade aguardam conteúdo. Seus destinos apresentam indisponibilidade com retorno.
 - Troca de tema e redes sociais aguardam integração; os controles informam essa condição. O cadastro e o acesso por Entrar estão implementados; o envio de e-mails reais requer a configuração descrita em MEMBERSHIP.md.
 - Os três vídeos e o catálogo de tutoriais da tela inicial continuam sem URLs.
-- A busca atual é local e cobre os metadados cadastrados; pesquisa em textos bíblicos e artigos depende desses conteúdos ou de um serviço de pesquisa.
+- A busca atual é local e cobre os metadados cadastrados, incluindo os 39 livros e seus temas; pesquisa em textos bíblicos e artigos depende desses conteúdos ou de um serviço de pesquisa.
 
 ## Capturas e validação
 
@@ -104,3 +104,11 @@ Validação específica: `TEST_URL=http://localhost:5173 node scripts/validate-g
 O botão **Entrar** agora oferece cadastro por e-mail e curiosidades, confirmação por link e aprovação administrativa. A biblioteca de PDFs e os downloads são protegidos no servidor. O painel `/administracao` permite aprovar, recusar, suspender e reativar cadastros, publicar PDFs e arquivar materiais.
 
 Configure `.env` a partir de `.env.example`, incluindo `ADMIN_EMAIL`. No modo local, as mensagens ficam na caixa do terminal (`npm run mail:local`); não há envio real até configurar o provedor. Instruções completas de teste, hospedagem, envio e backup em [MEMBERSHIP.md](MEMBERSHIP.md). Requer Node.js 22.13+; recomendado 24.
+
+## Livros do Antigo Testamento
+
+O primeiro card abre `/antigo-testamento/livros-da-biblia`, com cinco categorias ilustradas e os 39 livros do cânon protestante. Cada livro possui estudo completo em `/antigo-testamento/livros-da-biblia/<slug>` (por exemplo, `genesis`, `1-samuel` e `cantico-dos-canticos`), seis seções e exatamente quatro lições práticas. Essa área substitui o estado de indisponibilidade da coleção Livros da Bíblia.
+
+Conteúdo, edição, fontes de conferência, prompts das cinco ilustrações e detalhes de validação: [BOOKS.md](BOOKS.md). Dados em [books-data.js](books-data.js), modelo em [books.js](books.js) e estilos em [books.css](books.css).
+
+Com um servidor atualizado em execução: `TEST_URL=http://localhost:5174 npm run test:books`. Foram aprovadas 433 verificações específicas e 184 de regressão dos menus. As capturas do novo catálogo e de Gênesis, nas larguras de 1536, 768 e 390 px, ficam em `artifacts/books-*.png`.
