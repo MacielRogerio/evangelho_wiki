@@ -15,3 +15,23 @@
 
 .history-event .history-date-note{margin:12px 0 0;font-size:13px;line-height:1.5;color:#dce5f2}
 @media(max-width:760px){.history-event .history-date-note{font-size:12px}}
+
+/* Uma coluna mantém imagens e textos legíveis sem perder a distinção entre eras. */
+@media(max-width:760px){
+  .history-page{padding:40px 16px 60px}
+  .history-heading h1{font-size:clamp(32px,9vw,38px)}
+  .history-intro{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 20px;margin-top:34px;font-size:12px}
+  .history-intro span:before{content:'';display:inline-block;width:9px;height:9px;margin-right:6px;border-radius:50%;background:#9bc6ed}
+  .history-intro span:last-child:before{background:#efbc6f}
+  .history-track{padding-left:24px}
+  .history-track:before{left:5px;transform:none;width:3px}
+  .history-event,.history-event.biblical{width:100%;margin-left:0;padding:0 0 24px}
+  .history-connector,.biblical .history-connector{left:-19px;right:auto;top:26px;width:19px}
+  .history-connector:before,.biblical .history-connector:before{left:-4px;right:auto;width:10px;height:10px}
+  .history-event-card{padding:16px}
+  .history-event-card:before{content:'História da humanidade';display:block;margin-bottom:10px;color:#9bc6ed;font-size:11px;font-weight:bold;letter-spacing:.06em;text-transform:uppercase}
+  .history-event.biblical .history-event-card:before{content:'Evento bíblico';color:#efbc6f}
+  .history-event h2{font-size:22px;overflow-wrap:normal}
+  .history-event p{font-size:15px}
+  .history-date,.history-event small,.history-event .history-date-note{font-size:13px}
+}
