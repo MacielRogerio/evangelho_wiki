@@ -112,3 +112,9 @@ O primeiro card abre `/antigo-testamento/livros-da-biblia`, com cinco categorias
 Conteúdo, edição, fontes de conferência, prompts das cinco ilustrações e detalhes de validação: [BOOKS.md](BOOKS.md). Dados em [books-data.js](books-data.js), modelo em [books.js](books.js) e estilos em [books.css](books.css).
 
 Com um servidor atualizado em execução: `TEST_URL=http://localhost:5174 npm run test:books`. Foram aprovadas 433 verificações específicas e 184 de regressão dos menus. As capturas do novo catálogo e de Gênesis, nas larguras de 1536, 768 e 390 px, ficam em `artifacts/books-*.png`.
+
+## Preparar para GitHub Pages
+
+Execute `node scripts/build-pages.mjs` para gerar `pages-dist/` com os arquivos públicos. O endereço padrão é `/evangelho_wiki/`; para outro repositório, defina `PAGES_BASE_PATH`, por exemplo `PAGES_BASE_PATH=/outro-repositorio node scripts/build-pages.mjs`. A geração adapta caminhos e usa uma página 404 para recuperar a navegação ao abrir ou recarregar endereços internos.
+
+A pasta gerada deve ser publicada como conteúdo estático no GitHub Pages, por uma branch de publicação ou por um fluxo do GitHub Actions configurado por alguém com permissão para alterar workflows. A geração inclui apenas arquivos públicos e não publica `.env`, dados de cadastro, PDFs privados ou imagens originais. Na versão estática, o cadastro e a área de associados ficam indisponíveis porque exigem o servidor; o restante da aplicação continua acessível. Para usar essas funções, é necessário configurar uma hospedagem própria para o backend e integrar a API.
