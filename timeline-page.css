@@ -12,3 +12,6 @@
 .history-event img{width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#06162d}
 .history-event small{font-size:13px}
 @media(max-width:760px){.history-event img{height:auto}.history-event small{font-size:12px}}
+
+.history-event .history-date-note{margin:12px 0 0;font-size:13px;line-height:1.5;color:#dce5f2}
+@media(max-width:760px){.history-event .history-date-note{font-size:12px}}
