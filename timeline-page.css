@@ -147,3 +147,8 @@
 @media (min-width:1280px) and (max-width:1399px) and (hover:hover){
   .history-event-card{--history-title-height:4.75rem}
 }
+
+.history-event-card.history-text-card{
+  grid-template-rows:var(--history-meta-height) auto auto 0 auto auto;
+}
+.history-text-card .history-comments{overflow:visible;scrollbar-gutter:auto;margin-top:8px}

@@ -289,3 +289,22 @@ Os oito originais abaixo ficam disponíveis para revisão. Os títulos e as imag
 - `O esplendor do Segundo Templo.png`
 - `Povos diversos sob a luz do Criador.png`
 - `Trono imperial tombado sob a luz.png`
+
+## Ilustrações próprias para cenas antes relacionadas por imagem
+
+As nove artes foram geradas com ImageGen em realismo pictórico bíblico,
+composição horizontal 2:1, luz âmbar e sombras em azul escuro. Os arquivos
+publicáveis são WebP de 1000 × 500 em `assets/linha-do-tempo/`. As relações
+entre as passagens continuam acessíveis pela Concordância Bíblica.
+
+| Cartão | Arquivo WebP | Cena solicitada |
+| --- | --- | --- |
+| 434 | [judas-devolve-as-moedas.webp](assets/linha-do-tempo/judas-devolve-as-moedas.webp) | Judas lança as moedas de prata no piso do templo diante dos sacerdotes e anciãos, conforme Mateus 27:3–5. |
+| 611 | [pedro-pedra-angular.webp](assets/linha-do-tempo/pedro-pedra-angular.webp) | Pedro, ao lado de João, fala diante do conselho de Jerusalém, conforme Atos 4:5–12. |
+| 730 | [armadura-de-deus.webp](assets/linha-do-tempo/armadura-de-deus.webp) | Armadura, escudo, espada, cinto e sandálias em natureza-morta inspirada em Efésios 6:10–18. |
+| 731 | [cristo-exaltado.webp](assets/linha-do-tempo/cristo-exaltado.webp) | Cristo exaltado, envolto em luz, com pessoas ajoelhadas em reverência, conforme Filipenses 2:5–11 e Efésios 1:20–22. |
+| 750 | [todo-olho-o-vera.webp](assets/linha-do-tempo/todo-olho-o-vera.webp) | Cristo vem com as nuvens diante de pessoas que erguem o olhar, conforme Apocalipse 1:7. |
+| 755 | [leao-da-tribo-de-juda.webp](assets/linha-do-tempo/leao-da-tribo-de-juda.webp) | Leão e raízes simbolizam os títulos Leão da tribo de Judá e Raiz de Davi, conforme Apocalipse 5:5. |
+| 789 | [primeiras-tacas-da-ira.webp](assets/linha-do-tempo/primeiras-tacas-da-ira.webp) | Taça derramada sobre paisagem simbólica com mar rubro, sol intenso e cidadela em trevas, inspirada em Apocalipse 16:1–11. |
+| 790 | [espiritos-reunem-os-reis.webp](assets/linha-do-tempo/espiritos-reunem-os-reis.webp) | Três espíritos em forma semelhante à de rãs se dirigem aos reis, conforme Apocalipse 16:13–14. |
+| 800 | [soltura-de-satanas-e-juizo.webp](assets/linha-do-tempo/soltura-de-satanas-e-juizo.webp) | Silhueta do adversário, abismo aberto e fogo ao longe evocam a soltura e o juízo de Apocalipse 20:7–10. |

@@ -1,4 +1,4 @@
-import {timelineImages, timelineAdditions, timelineConnections, kingdomsEvents, kingdomsConnections, kingdomsArtwork, kingdomsTextConnections} from './timeline-data.js?v=cenas-do-golgota';
+import {timelineImages, timelineAdditions, timelineConnections, kingdomsEvents, kingdomsConnections, kingdomsArtwork, kingdomsTextConnections} from './timeline-data.js?v=ilustracoes-proprias';
 import {booksMarkup,books,bookURL,booksBase} from './books.js';
 import {setupMembership, membershipShell, loadMembership} from './membership.js';
 let cleanupMembership = () => {};
@@ -53,34 +53,36 @@ function historyContext(event, hasImage){
 function historyCard(event, eventsByOrder){
   const id=historyId(event.order);
   const edges=historyConnections.filter(([from,to])=>from===event.order||to===event.order);
+  if(event.relatedScene && !edges.some(([from,to])=>from===event.relatedScene||to===event.relatedScene)){
+    edges.push([event.order,event.relatedScene,'Cena relacionada']);
+  }
   const links=edges.map(([from,to,label,description])=>{
     const target=eventsByOrder.get(from===event.order?to:from);
     return `<li><a data-history-link href="#${historyId(target.order)}">${escapeHTML(target.title)}</a>
       <span>${escapeHTML(target.credit||target.source)} · ${escapeHTML(label)}</span>
-      <p>${escapeHTML(description)}</p></li>`;
+      ${description?`<p>${escapeHTML(description)}</p>`:''}</li>`;
   }).join('');
   const reference=event.source.startsWith('https:')
     ? `<a href="${escapeHTML(event.source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.credit||'Metropolitan Museum of Art')} ↗</a>`
     : `<strong>${escapeHTML(event.source)}</strong>`;
   const date=event.chronology==='undated'||/(?:\d|século|séc\.)/i.test(event.date||'')?event.date:'';
-  const artwork=eventsByOrder.get(event.contextImage)||event;
-  const imageNote=artwork===event?event.imageNote:`Imagem relacionada · ${artwork.title}`;
-  const comments=[event.subtitle,event.description,imageNote].filter(Boolean);
+  const hasArtwork=Boolean(event.image||event.artwork);
+  const comments=[event.subtitle,event.description,event.imageNote].filter(Boolean);
   return `<article id="${id}" class="history-event ${event.side}" tabindex="-1" aria-labelledby="${id}-title">
-    <div class="history-event-card">
+    <div class="history-event-card${hasArtwork?'':' history-text-card'}">
       <div class="history-connector">${date?`<span class="history-date">${escapeHTML(date)}</span>`:''}</div>
       ${event.section?`<div class="history-editorial-heading"><span class="history-classification">${escapeHTML(event.chronology==='undated'?event.date:event.section)}${event.chronology==='thematic'?' · posição temática':''}</span><h2 id="${id}-title">${escapeHTML(event.title)}</h2></div>`:`<span class="history-area">${event.side==='historical'?'História da Humanidade':'Evento bíblico'}</span><h2 id="${id}-title">${escapeHTML(event.title)}</h2>`}
       ${comments.length?`<div class="history-comments" role="region" aria-label="Comentários" tabindex="0">
         ${comments.map(comment=>`<p>${escapeHTML(comment)}</p>`).join('')}
       </div>`:''}
-      <div class="history-artwork">
-        ${artwork.image?`<img src="${escapeHTML(artwork.image)}" alt="${escapeHTML(artwork.title)}" width="${artwork.imageWidth||1000}" height="${artwork.imageHeight||500}" loading="lazy" decoding="async">`:event.artwork?'<span class="history-artwork-pending">Ilustração em preparação</span>':''}
-      </div>
+      ${hasArtwork?`<div class="history-artwork">
+        ${event.image?`<img src="${escapeHTML(event.image)}" alt="${escapeHTML(event.title)}" width="${event.imageWidth||1000}" height="${event.imageHeight||500}" loading="lazy" decoding="async">`:'<span class="history-artwork-pending">Ilustração em preparação</span>'}
+      </div>`:''}
       <div class="history-reference">
         <small>${reference}</small>
         <a class="history-return" data-history-return hidden>Voltar à passagem de origem</a>
       </div>
-      ${historyContext(event,Boolean(artwork.image))}
+      ${historyContext(event,Boolean(event.image))}
       ${links?`<details class="history-links"><summary><span class="history-links-label">Concordância Bíblica</span> (${edges.length})</summary><ul>${links}</ul></details>`:''}
     </div>
   </article>`;
