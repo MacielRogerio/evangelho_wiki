@@ -308,3 +308,94 @@ entre as passagens continuam acessíveis pela Concordância Bíblica.
 | 789 | [primeiras-tacas-da-ira.webp](assets/linha-do-tempo/primeiras-tacas-da-ira.webp) | Taça derramada sobre paisagem simbólica com mar rubro, sol intenso e cidadela em trevas, inspirada em Apocalipse 16:1–11. |
 | 790 | [espiritos-reunem-os-reis.webp](assets/linha-do-tempo/espiritos-reunem-os-reis.webp) | Três espíritos em forma semelhante à de rãs se dirigem aos reis, conforme Apocalipse 16:13–14. |
 | 800 | [soltura-de-satanas-e-juizo.webp](assets/linha-do-tempo/soltura-de-satanas-e-juizo.webp) | Silhueta do adversário, abismo aberto e fogo ao longe evocam a soltura e o juízo de Apocalipse 20:7–10. |
+
+## Gênesis e seu contexto histórico
+
+O documento [Linha do tempo de Gênesis e da história da humanidade](<Imagens Linha do Tempo/Livros/genesis-linha-do-tempo-evangelho-wiki.docx>) define os números dos acontecimentos no quadro abaixo. A identificação de cada cartão e suas referências estão em [genesis-timeline-data.js](genesis-timeline-data.js).
+
+As cenas bíblicas 01, 03, 04, 07, 08, 12, 15, 16, 35 e 36 reutilizam as imagens da criação, da saída do Éden, das ofertas de Caim e Abel, da arca com o arco-íris, de Babel, da promessa a Abraão, dos três visitantes, do resgate de Ló, do reencontro de José e Jacó e da bênção de Jacó. Na coluna histórica, o primeiro marco reutiliza a ilustração de Uruk.
+
+### Novas ilustrações bíblicas
+
+O ImageGen gerou uma ilustração por cena. O enquadramento para o site é de 1200 × 600, em WebP. O comando usado para cada cena combina o enquadramento inicial, o trecho da tabela e as diretrizes de estilo.
+
+> Create one wide landscape illustration, cinematic 2:1 if possible, for Evangelho.wiki biblical timeline. [Cena] Realistic painterly historical reconstruction, grounded Bronze Age Near East where applicable, warm gold light and natural colors, serious and respectful, legible focal point near center, no text, no captions, no frames. No modern objects.
+
+| Nº no documento | Arquivo | Cena solicitada |
+|---:|---|---|
+| 02 | [`genesis-02.webp`](assets/linha-do-tempo/genesis-02.webp) | Genesis 2: the first couple at peace tending the lush Garden of Eden, modestly concealed by foliage |
+| 05 | [`genesis-05.webp`](assets/linha-do-tempo/genesis-05.webp) | Genesis 5: Enoch, an ancient Near Eastern man, walking reverently along a quiet trail at dawn |
+| 06 | [`genesis-06.webp`](assets/linha-do-tempo/genesis-06.webp) | Genesis 6–8: Noah and his family preparing a massive timber ark on dry ground, animals approaching |
+| 09 | [`genesis-09.webp`](assets/linha-do-tempo/genesis-09.webp) | Genesis 11: Terah and Abram's family caravan departing ancient Ur toward Haran |
+| 10 | [`genesis-10.webp`](assets/linha-do-tempo/genesis-10.webp) | Genesis 12: Abram, Sarai and their caravan arriving in Canaan near Shechem, hill country and oak |
+| 11 | [`genesis-11.webp`](assets/linha-do-tempo/genesis-11.webp) | Genesis 13: Abram and Lot part peacefully, one household turns toward the Jordan plain, the other stays in Canaan |
+| 13 | [`genesis-13.webp`](assets/linha-do-tempo/genesis-13.webp) | Genesis 16: Hagar sits beside a spring in the wilderness, listening to a divine messenger shown as a distant figure in natural light |
+| 14 | [`genesis-14.webp`](assets/linha-do-tempo/genesis-14.webp) | Genesis 17: elderly Abraham and Sarah by their tent after the covenant promise, subtle sense of wonder, no circumcision depicted |
+| 17 | [`genesis-17.webp`](assets/linha-do-tempo/genesis-17.webp) | Genesis 21: Hagar discovers the well that will save young Ishmael in the wilderness |
+| 18 | [`genesis-18.webp`](assets/linha-do-tempo/genesis-18.webp) | Genesis 22: Abraham lowers his hand as Isaac stands safe and a ram is caught by its horns in the thicket, no violence |
+| 19 | [`genesis-19.webp`](assets/linha-do-tempo/genesis-19.webp) | Genesis 23: Abraham negotiates for the cave of Machpelah before witnesses at the city gate |
+| 20 | [`genesis-20.webp`](assets/linha-do-tempo/genesis-20.webp) | Genesis 24: Rebekah with a water jar meets Isaac in the field at dusk, caravan behind |
+| 21 | [`genesis-21.webp`](assets/linha-do-tempo/genesis-21.webp) | Genesis 25: Esau, a tired hunter, trades his birthright as Jacob offers a bowl of lentil stew |
+| 22 | [`genesis-22.webp`](assets/linha-do-tempo/genesis-22.webp) | Genesis 26: Isaac constructs a simple stone altar at Beersheba near his camp and well |
+| 23 | [`genesis-23.webp`](assets/linha-do-tempo/genesis-23.webp) | Genesis 27: Jacob with goatskin covering his forearm receives elderly blind Isaac's blessing |
+| 24 | [`genesis-24.webp`](assets/linha-do-tempo/genesis-24.webp) | Genesis 28: Jacob asleep at Bethel with head near a stone, dream of heavenly stairway and angels |
+| 25 | [`genesis-25.webp`](assets/linha-do-tempo/genesis-25.webp) | Genesis 29–30: Leah and Rachel with children in a pastoral household near Laban's camp |
+| 26 | [`genesis-26.webp`](assets/linha-do-tempo/genesis-26.webp) | Genesis 31: Jacob and his household set out in a caravan from Laban's land |
+| 27 | [`genesis-27.webp`](assets/linha-do-tempo/genesis-27.webp) | Genesis 32–33: Jacob and Esau embrace in reconciliation outdoors, tearful and dignified |
+| 28 | [`genesis-28.webp`](assets/linha-do-tempo/genesis-28.webp) | Genesis 35: Jacob builds a stone altar at Bethel, with his household respectfully gathered |
+| 29 | [`genesis-29.webp`](assets/linha-do-tempo/genesis-29.webp) | Genesis 37: Joseph is led away by an east-to-Egypt merchant caravan, brothers watch in distance |
+| 30 | [`genesis-30.webp`](assets/linha-do-tempo/genesis-30.webp) | Genesis 38: Judah recognizing his signet, cord and staff presented before Tamar, with witnesses |
+| 31 | [`genesis-31.webp`](assets/linha-do-tempo/genesis-31.webp) | Genesis 39: Joseph stands steadfast in an ancient Egyptian mudbrick prison with other prisoners |
+| 32 | [`genesis-32.webp`](assets/linha-do-tempo/genesis-32.webp) | Genesis 41: Joseph interprets dreams before Pharaoh in an Egyptian audience hall, a symbolic sheaf of grain in foreground |
+| 33 | [`genesis-33.webp`](assets/linha-do-tempo/genesis-33.webp) | Genesis 44: Judah pleads before the Egyptian governor Joseph on behalf of Benjamin, brothers behind him |
+| 34 | [`genesis-34.webp`](assets/linha-do-tempo/genesis-34.webp) | Genesis 45: an emotional Joseph reveals himself to his brothers in a private Egyptian hall |
+| 37 | [`genesis-37.webp`](assets/linha-do-tempo/genesis-37.webp) | Genesis 50: elderly Joseph speaks with his family of the return to the promised land, a quiet interior in ancient Egypt |
+
+As cenas 33 e 34 passaram por uma revisão de figurino para representar José como governador do Egito.
+
+> Edit the supplied Genesis 44 illustration. Keep the wide 2:1 composition, Joseph listening and Judah pleading, all faces and atmosphere. Replace Joseph's striped royal nemes and cobra with his own short dark hair, completely bare-headed. Replace Joseph's royal throne with a dignified plain administrative seat and keep his pale fine linen and simple gold chain. The guard should also be dressed without a royal headdress. Joseph is the governor meeting his brothers, while Pharaoh is absent. No royal insignia anywhere in the foreground. Keep all other scene relationships and the respectful realistic painterly treatment.
+
+> Edit the supplied Genesis 45 illustration. Keep the wide 2:1 composition, Joseph with open arms and his brothers, faces and atmosphere. Replace Joseph's striped royal nemes and decorative forehead band with his own short dark hair, completely bare-headed. Simplify his clothing to pale fine linen and a simple gold chain. He is the governor privately revealing himself to his brothers. The Pharaoh is absent, no royal insignia. Retain the respectful realistic painterly treatment.
+
+### Novas ilustrações históricas
+
+Os cartões identificam as imagens como reconstruções ilustrativas e apontam para os catálogos e dossiês que documentam os marcos.
+
+> Create one wide landscape editorial illustration, cinematic 2:1 if possible, for the history column of Evangelho.wiki. [Cena] Realistic historical painting, warm natural light, central focal point, no visible captions, no frames, no modern objects.
+
+| Nº no documento | Arquivo | Cena solicitada |
+|---:|---|---|
+| 02 | [`genesis-historia-02.webp`](assets/linha-do-tempo/genesis-historia-02.webp) | A scribe in late fourth-millennium BCE southern Mesopotamia pressing numeral and grain signs into a small clay tablet, bowls of barley beside him, close-up, artisan workshop. Show the general activity rather than a specific artifact. |
+| 03 | [`genesis-historia-03.webp`](assets/linha-do-tempo/genesis-historia-03.webp) | The Great Pyramid of Khufu nearing completion at the Giza plateau in the Old Kingdom, limestone casing partly in place, a few worker silhouettes convey scale. Avoid presenting any specific construction method as certain. |
+| 04 | [`genesis-historia-04.webp`](assets/linha-do-tempo/genesis-historia-04.webp) | Elevated view down a residential street in ancient Mohenjo-Daro in the Indus Valley, fired brick and well-organized houses and drainage, no Mesopotamian or Egyptian architecture. |
+| 05 | [`genesis-historia-05.webp`](assets/linha-do-tempo/genesis-historia-05.webp) | The stepped ziggurat at the Sumerian city of Ur around 2100 BCE, with three converging monumental stairs at the front of the rectangular mudbrick base, ancient flat Mesopotamian landscape. |
+| 06 | [`genesis-historia-06.webp`](assets/linha-do-tempo/genesis-historia-06.webp) | A small group of foreign travelers, men, women and children, with donkeys entering Middle Kingdom Egypt across a dry valley. Evoke the Beni Hasan scene as a reconstruction, no named biblical figures. |
+| 07 | [`genesis-historia-07.webp`](assets/linha-do-tempo/genesis-historia-07.webp) | An ancient Babylonian stoneworker chiseling a large dark basalt monument in the Old Babylonian period. Focus on the workshop and activity, avoid legible invented text and do not imitate the exact Louvre artifact. |
+| 08 | [`genesis-historia-08.webp`](assets/linha-do-tempo/genesis-historia-08.webp) | An Old Babylonian scribe at Nippur pressing wedges into damp clay to record an old Sumerian story, brick houses seen through an opening. Avoid reproducing the exact museum artifact. |
+| 09 | [`genesis-historia-09.webp`](assets/linha-do-tempo/genesis-historia-09.webp) | A Neo-Assyrian scribe working with clay tablets in seventh-century BCE Nineveh, storeroom shelves with tablets behind him. Evoke transmission of the Epic of Gilgamesh without claiming the exact artifact is shown. |
+| 10 | [`genesis-historia-10.webp`](assets/linha-do-tempo/genesis-historia-10.webp) | The terraced Etemenanki temple tower above the skyline of Neo-Babylonian Babylon circa sixth century BCE, mudbrick architecture and reed-lined Euphrates in the distance. A plausible scholarly-style reconstruction without people from Genesis. |
+
+## Êxodo
+
+O documento `Imagens Linha do Tempo/Livros/exodo-linha-do-tempo-evangelho-wiki.docx` reúne 27 cenas bíblicas e quatro registros históricos. A ordem das cenas segue o livro. As datas dos registros vêm das fontes institucionais vinculadas nos cartões.
+
+As 21 novas imagens bíblicas têm a forma `exodo-NN.png` em `Imagens Linha do Tempo/Historia Biblica/`. As quatro reconstruções históricas estão em `Imagens Linha do Tempo/Historia da Humanidade/`, com os nomes `exodo-historia-avaris.png`, `exodo-historia-tijolos.png`, `exodo-historia-pi-ramesses.png` e `exodo-historia-mernepta.png`. Os WebPs têm os mesmos nomes-base em `assets/linha-do-tempo/`. As reconstruções são ilustrações geradas para contextualização. Os links de fonte permitem consultar os registros e, no caso de Rekhmiré, ver o fac-símile do museu.
+
+As cenas 11, 14, 23, 25, 26 e 27 reaproveitam, respectivamente, `pascoa-egito.webp`, `0071.webp`, `0072.webp`, `0080.webp`, `0081.webp` e `gloria-tabernaculo.webp`, com seus caminhos e âncoras preservados.
+
+## Levítico, Números e Deuteronômio
+
+A etapa segue o arquivo `Imagens Linha do Tempo/Livros/levitico-numeros-deuteronomio-linha-do-tempo-evangelho-wiki.docx`. Os 31 cartões mantêm o encadeamento do Sinai a Moabe. As datas bíblicas são relativas à saída do Egito. No Sinai, as instruções sem dia indicado seguem a posição editorial do documento. A Páscoa do primeiro mês precede o censo do segundo mês. A designação de Josué em Números 27 e seu encorajamento público em Deuteronômio 31 têm cartões ligados. As âncoras `cena-82` e `cena-83` permanecem em uso.
+
+Os 244 versículos do Word foram mantidos nos seus grupos de leitura, com números individuais. Crédito da tradução e licença do projeto aparecem no controle **Versículos selecionados**. Em **Contexto** na partida do Sinai, o itinerário esquemático seleciona etapas de Números 33 e indica que o traçado não usa coordenadas.
+
+As ilustrações bíblicas geradas têm nomes `pentateuco-NN.png` em `Imagens Linha do Tempo/Historia Biblica/` e os WebPs correspondentes em `assets/linha-do-tempo/`. As cenas 01, 28, 30 e 31 usam as imagens existentes do Tabernáculo, do maná, da despedida de Josué e do monte Nebo. A imagem do maná acompanha uma lembrança em Deuteronômio, com elo para o cartão de Êxodo.
+
+| Registro histórico | Imagem | Crédito |
+| --- | --- | --- |
+| Canaã no Bronze Final | `pentateuco-historia-hazor.webp` | Palácio cananeu reconstituído em Hazor. [Almog, domínio público](https://commons.wikimedia.org/wiki/File:Hatzorpalace.jpg) |
+| Estela de Merneptá | `exodo-historia-mernepta.webp` | Reconstrução artística já usada em Êxodo |
+| Estela de Mesa | `pentateuco-historia-mesa.webp` | [Mbzt](https://commons.wikimedia.org/wiki/File:F4171_Louvre_stele_de_Mesha_AO5066_rwk.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Redimensionada e convertida para WebP |
+| Deir ‘Alla | `pentateuco-historia-deir-alla.webp` | Fragmentos de reboco no Museu da Jordânia. [Jona Lendering, Livius, CC0 1.0](https://www.livius.org/pictures/jordan/deir-alla/deir-alla-inscription/). Convertida para WebP |
+
+Os três JPEGs de origem estão em `Imagens Linha do Tempo/Historia da Humanidade/`. Mesa e Deir ‘Alla aparecem na época dos reis, ligadas às cenas anteriores de Moabe e Balaão.

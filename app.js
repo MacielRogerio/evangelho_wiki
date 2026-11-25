@@ -1,4 +1,7 @@
 import {timelineImages, timelineAdditions, timelineConnections, kingdomsEvents, kingdomsConnections, kingdomsArtwork, kingdomsTextConnections} from './timeline-data.js?v=ilustracoes-proprias';
+import {genesisEvents, genesisHistoricalEvents, genesisConnections} from './genesis-timeline-data.js?v=genesis-linha-do-tempo';
+import {exodoEvents, exodoHistoricalEvents, exodoConnections} from './exodo-timeline-data.js';
+import {pentateuchEvents, pentateuchHistoricalEvents, pentateuchConnections, pentateuchScriptureCredit} from './pentateuch-timeline-data.js';
 import {booksMarkup,books,bookURL,booksBase} from './books.js';
 import {setupMembership, membershipShell, loadMembership} from './membership.js';
 let cleanupMembership = () => {};
@@ -28,25 +31,41 @@ const normalize=value=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toL
 function searchResults(slug){const term=new URLSearchParams(location.search).get('q')?.trim()||'';const words=normalize(term).split(/\s+/).filter(Boolean);const found=words.length?indexEntries(slug).filter(e=>words.every(word=>normalize(e.title+' '+e.description+' '+e.section).includes(word))):[];return `<section id="conteudo" class="content-panel" tabindex="-1" aria-labelledby="content-title"><p class="eyebrow">BUSCA · ${slug?sections[slug].name:'TODAS AS SEÇÕES'}</p><h2 id="content-title">${term?'Resultados para “'+escapeHTML(term)+'”':'Digite um termo para buscar'}</h2><p>A busca consulta os títulos e descrições cadastrados. Os livros do Antigo Testamento já possuem estudos; outras coleções estão em preparação.</p><p role="status">${found.length} resultado${found.length!==1?'s':''} encontrado${found.length!==1?'s':''}.</p><div class="search-results">${found.map(e=>`<a class="catalog-entry" href="${e.url}"><small>${e.type} · ${e.section}</small><h3>${e.title}</h3><p>${e.description}</p><span>Abrir resultado ›</span></a>`).join('')}</div><a class="back-link" href="${slug?'/'+slug:'/'}">← Voltar ${slug?'ao menu de '+sections[slug].name:'ao início'}</a></section>`}
 
 const historyId=order=>`cena-${String(order).replace('.', '-')}`;
-const historyConnections=[...timelineConnections,...kingdomsConnections];
+const historyConnections=[...timelineConnections,...kingdomsConnections,...genesisConnections,...exodoConnections,...pentateuchConnections];
 
 function historyContext(event, hasImage){
   if(!event.context)return '';
   const related=kingdomsTextConnections.get(event.order)||[];
+  const [photographer, photoURL, photoLicense]=event.imageCredit||[];
   const rows=[
     ['Local',event.location],
     ['Período e certeza',event.certainty?[event.date,event.certainty].filter(Boolean).join(' · '):event.period||event.date],
     ['Tipo de apresentação',{thematic:'Posição temática',undated:'Data discutida',period:'Resumo de período'}[event.chronology]],
-    ['Ilustração',hasImage?(event.artisticContext||'Reconstrução artística.'):null],
+    ['Imagem',hasImage?(photographer||event.artisticContext||'Reconstrução artística.'):null],
   ];
   return `<details class="history-context">
     <summary>Contexto</summary>
     <div class="history-context-body" tabindex="0" role="region" aria-label="Contexto e fontes">
       <dl>${rows.filter(([,value])=>value).map(([term,value])=>`<dt>${term}</dt><dd>${escapeHTML(value)}</dd>`).join('')}</dl>
       <p>${escapeHTML(event.context)}</p>
+      ${event.route?`<h3>Itinerário esquemático</h3><ol class="history-route">${event.route.map(stop=>`<li>${escapeHTML(stop)}</li>`).join('')}</ol>`:''}
+      ${photoURL?`<p><a href="${escapeHTML(photoURL)}" target="_blank" rel="noopener noreferrer">Foto original</a>${photoLicense?` · <a href="${escapeHTML(photoLicense)}" target="_blank" rel="noopener noreferrer">Licença da foto</a>`:''}</p>`:''}
       ${related.length?`<h3>Conexões bíblicas</h3><ul>${related.map(([type,reference])=>`<li><strong>${escapeHTML(type)}</strong> · ${escapeHTML(reference)}</li>`).join('')}</ul>`:''}
       ${event.sources?.length?`<h3>Fontes históricas</h3><ul>${event.sources.map(([label,url])=>`<li><a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a></li>`).join('')}</ul>`:''}
     </div>
+  </details>`;
+}
+
+function historyScripture(passages){
+  if(!passages?.length)return '';
+  const {label,project,license}=pentateuchScriptureCredit;
+  return `<details class="history-scripture">
+    <summary>Versículos selecionados</summary>
+    ${passages.map(([passage,verses])=>`<blockquote aria-label="${escapeHTML(passage)}">
+      <strong>${escapeHTML(passage)}</strong>
+      ${verses.map(([number,verse])=>`<p><sup>${number}</sup> ${escapeHTML(verse)}</p>`).join('')}
+    </blockquote>`).join('')}
+    <small>${escapeHTML(label)} <a href="${project}" target="_blank" rel="noopener noreferrer">Projeto Bíblia Livre</a> · <a href="${license}" target="_blank" rel="noopener noreferrer">CC BY 3.0 BR</a></small>
   </details>`;
 }
 
@@ -56,23 +75,29 @@ function historyCard(event, eventsByOrder){
   if(event.relatedScene && !edges.some(([from,to])=>from===event.relatedScene||to===event.relatedScene)){
     edges.push([event.order,event.relatedScene,'Cena relacionada']);
   }
-  const links=edges.map(([from,to,label,description])=>{
+  const cardLinks=edges.map(([from,to,label,description])=>{
     const target=eventsByOrder.get(from===event.order?to:from);
     return `<li><a data-history-link href="#${historyId(target.order)}">${escapeHTML(target.title)}</a>
       <span>${escapeHTML(target.credit||target.source)} · ${escapeHTML(label)}</span>
       ${description?`<p>${escapeHTML(description)}</p>`:''}</li>`;
-  }).join('');
+  });
+  const references=(event.concordance||[]).map(([passage,description])=>
+    `<li><strong>${escapeHTML(passage)}</strong><p>${escapeHTML(description)}</p></li>`
+  );
+  const links=[...references,...cardLinks];
   const reference=event.source.startsWith('https:')
     ? `<a href="${escapeHTML(event.source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.credit||'Metropolitan Museum of Art')} ↗</a>`
     : `<strong>${escapeHTML(event.source)}</strong>`;
-  const date=event.chronology==='undated'||/(?:\d|século|séc\.)/i.test(event.date||'')?event.date:'';
+  const date=event.chronology==='undated'||event.chronology==='narrative'||/(?:\d|século|séc\.)/i.test(event.date||'')?event.date:'';
   const hasArtwork=Boolean(event.image||event.artwork);
   const comments=[event.subtitle,event.description,event.imageNote].filter(Boolean);
+  const narrative=event.chronology==='narrative';
+  const titleTag=narrative?'h3':'h2';
   return `<article id="${id}" class="history-event ${event.side}" tabindex="-1" aria-labelledby="${id}-title">
-    <div class="history-event-card${hasArtwork?'':' history-text-card'}">
+    <div class="history-event-card${hasArtwork?'':' history-text-card'}${event.genesis?' history-genesis-card':''}${event.imageCredit?' history-documentary-card':''}">
       <div class="history-connector">${date?`<span class="history-date">${escapeHTML(date)}</span>`:''}</div>
-      ${event.section?`<div class="history-editorial-heading"><span class="history-classification">${escapeHTML(event.chronology==='undated'?event.date:event.section)}${event.chronology==='thematic'?' · posição temática':''}</span><h2 id="${id}-title">${escapeHTML(event.title)}</h2></div>`:`<span class="history-area">${event.side==='historical'?'História da Humanidade':'Evento bíblico'}</span><h2 id="${id}-title">${escapeHTML(event.title)}</h2>`}
-      ${comments.length?`<div class="history-comments" role="region" aria-label="Comentários" tabindex="0">
+      ${event.section?`<div class="history-editorial-heading"><span class="history-classification">${escapeHTML(event.chronology==='undated'?event.date:event.section)}${event.chronology==='thematic'?' · posição temática':''}</span><h2 id="${id}-title">${escapeHTML(event.title)}</h2></div>`:`<span class="history-area">${event.side==='historical'?'História da Humanidade':'Evento bíblico'}</span><${titleTag} id="${id}-title">${escapeHTML(event.title)}</${titleTag}>`}
+      ${comments.length?`<div class="history-comments"${event.genesis?'':' role="region" aria-label="Comentários" tabindex="0"'}>
         ${comments.map(comment=>`<p>${escapeHTML(comment)}</p>`).join('')}
       </div>`:''}
       ${hasArtwork?`<div class="history-artwork">
@@ -83,7 +108,8 @@ function historyCard(event, eventsByOrder){
         <a class="history-return" data-history-return hidden>Voltar à passagem de origem</a>
       </div>
       ${historyContext(event,Boolean(event.image))}
-      ${links?`<details class="history-links"><summary><span class="history-links-label">Concordância Bíblica</span> (${edges.length})</summary><ul>${links}</ul></details>`:''}
+      ${links.length?`<details class="history-links"><summary><span class="history-links-label">Concordância Bíblica</span> (${links.length})</summary><ul>${links.join('')}</ul></details>`:''}
+      ${historyScripture(event.scripture)}
     </div>
   </article>`;
 }
@@ -91,13 +117,22 @@ function historyCard(event, eventsByOrder){
 function timelineMarkup(){
   const events=[...timelineImages.map(scene=>({...scene,imageHeight:563})),...timelineAdditions].map(scene=>({
     side:'biblical',...scene,
-    ...(scene.order===71?{description:'O livro do Êxodo narra a saída dos israelitas do Egito sob a liderança de Moisés. A data do acontecimento é debatida.'}:{}),
   }));
   events.push(
-    {order:59,side:'historical',date:'c. 3200 a.C.',title:'Uruk e as primeiras cidades',description:'Uruk floresce no sul da Mesopotâmia, em uma região onde surgem formas iniciais de escrita.',source:'https://www.metmuseum.org/pt/essays/uruk-the-first-city',image:'/assets/linha-do-tempo/uruk-primeiras-cidades.webp',imageWidth:1000,imageHeight:563,imageNote:'Reconstrução ilustrativa'},
     {order:69,side:'historical',date:'1595 a.C.',title:'A antiga Babilônia',description:'Uma incursão hitita alcança Babilônia, marcando o fim do período paleobabilônico.',source:'https://www.metmuseum.org/ko/essays/babylon',image:'/assets/linha-do-tempo/antiga-babilonia.webp',imageWidth:1000,imageHeight:563,imageNote:'Reconstrução ilustrativa'}
   );
   const byOrder=new Map(events.map(event=>[event.order,event]));
+  for(const event of [...genesisEvents,...exodoEvents,...pentateuchEvents]){
+    byOrder.set(event.order,{
+      ...byOrder.get(event.order),
+      side:'biblical', chronology:'narrative', date:'Data não estabelecida', genesis:true,
+      ...event,
+    });
+  }
+  for(const event of [...genesisHistoricalEvents,...exodoHistoricalEvents,...pentateuchHistoricalEvents]){
+    byOrder.set(event.order,{side:'historical',genesis:true,...event});
+  }
+  byOrder.get(21).sequence=13.2;
   for(const event of kingdomsEvents){
     const previous=byOrder.get(event.order);
     const image=event.artwork
@@ -116,9 +151,9 @@ function timelineMarkup(){
     <div class="history-overview">
     <div class="history-heading"><p class="eyebrow">UMA JORNADA ATRAVÉS DAS ERAS</p><h1>Linha do Tempo</h1><p>As Escrituras e a história da humanidade ao longo do tempo.</p></div>
     <div class="history-intro"><span>HISTÓRIA DA HUMANIDADE</span><span>EVENTOS BÍBLICOS</span></div>
-    <p class="history-note">As datas aproximadas e os vínculos temáticos estão indicados nos cartões. A distância entre eles não representa uma escala de tempo. Abra <strong>Contexto</strong> para ver os critérios e as fontes ou <strong>Concordância Bíblica</strong> para seguir as passagens relacionadas.</p>
+    <p class="history-note">No Pentateuco, os acontecimentos seguem a ordem da narrativa bíblica. De Levítico a Deuteronômio, os anos são contados a partir da saída do Egito. Os registros da História da Humanidade seguem as datas das fontes. A posição dos registros junto às cenas bíblicas indica relação editorial. A distância entre cartões não representa uma escala de tempo. Abra <strong>Contexto</strong> para ver as fontes ou <strong>Concordância Bíblica</strong> para consultar as passagens relacionadas.</p>
     </div>
-    <div class="history-track"><div class="history-active-line" aria-hidden="true" hidden></div>${ordered.map(event=>`${event.order===236?undatedSection:''}${historyCard(event,byOrder)}`).join('')}</div>
+    <div class="history-track"><div class="history-active-line" aria-hidden="true" hidden></div>${ordered.map(event=>`${event.order===236?undatedSection:''}${event.heading?`<h2 class="history-era-heading">${escapeHTML(event.heading)}</h2>`:''}${historyCard(event,byOrder)}`).join('')}</div>
     <p class="history-end">Mais acontecimentos serão adicionados a esta jornada.</p><a class="history-back" href="/">← Voltar ao início</a>
   </div>`;
 }
@@ -217,7 +252,7 @@ function setupHistory(){
     line.dataset.to=to.id;
     track.querySelector('.history-selected')?.classList.remove('history-selected');
     to.classList.add('history-selected');
-    const details=from.querySelector('details');
+    const details=link.closest('details');
     if(details)details.open=false;
     event.preventDefault();
     history.replaceState({...history.state,scrollY:window.scrollY},'');
