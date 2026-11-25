@@ -196,3 +196,19 @@
 .history-documentary-card .history-artwork img{aspect-ratio:auto;max-height:28rem;object-fit:contain}
 .history-route{margin:8px 0 0;padding-inline-start:24px;color:#d1daea}
 .history-route li+li{margin-top:4px}
+.history-river-map{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  gap:8px;
+  align-items:stretch;
+  margin-top:8px;
+  overflow-wrap:anywhere;
+}
+.history-river-map>div{padding:8px;background:#10284a;border-radius:6px}
+.history-river-map>span{padding:8px 2px;text-align:center;color:#b7def5;border-inline:1px solid #4d84a6}
+.history-river-map ul{padding-inline-start:16px;margin-top:6px}
+.history-context-image{margin:10px 0 0}
+.history-context-image img{aspect-ratio:auto;object-fit:contain}
+.history-context-image figcaption{margin-top:6px;font-size:12px;line-height:1.4}
+.history-context-body .history-region-map{display:grid;gap:6px;padding:0;list-style:none}
+.history-region-map li{padding:8px;border-left:2px solid #e8b880;border-radius:4px;background:#10284a}

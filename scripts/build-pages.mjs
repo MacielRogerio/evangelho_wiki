@@ -9,7 +9,7 @@ if(output===source || !output.startsWith(source+path.sep)) throw new Error('O di
 await rm(output,{recursive:true,force:true});
 await mkdir(output,{recursive:true});
 await cp('assets',path.join(output,'assets'),{recursive:true});
-const files=['index.html','style.css','sections.css','app.js','sections.js','books.js','books-data.js','books.css','timeline-data.js','genesis-timeline-data.js','exodo-timeline-data.js','pentateuch-timeline-data.js','timeline-page.css','golden-light.js','membership.css'];
+const files=['index.html','style.css','sections.css','app.js','sections.js','books.js','books-data.js','books.css','timeline-data.js','genesis-timeline-data.js','exodo-timeline-data.js','pentateuch-timeline-data.js','joshua-timeline-data.js','judges-timeline-data.js','monarchy-timeline-data.js','timeline-page.css','golden-light.js','membership.css'];
 for(const file of files){
  let content=await readFile(file,'utf8');
  // Rewrite root-relative URLs in HTML, CSS and JavaScript string literals.

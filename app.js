@@ -2,6 +2,9 @@ import {timelineImages, timelineAdditions, timelineConnections, kingdomsEvents, 
 import {genesisEvents, genesisHistoricalEvents, genesisConnections} from './genesis-timeline-data.js?v=genesis-linha-do-tempo';
 import {exodoEvents, exodoHistoricalEvents, exodoConnections} from './exodo-timeline-data.js';
 import {pentateuchEvents, pentateuchHistoricalEvents, pentateuchConnections, pentateuchScriptureCredit} from './pentateuch-timeline-data.js';
+import {joshuaEvents, joshuaHistoricalEvents, joshuaConnections} from './joshua-timeline-data.js';
+import {judgesEvents, judgesHistoricalEvents, judgesConnections} from './judges-timeline-data.js';
+import {monarchyEvents, monarchyParallelEvents, monarchyHistoricalEvents, monarchyConnections} from './monarchy-timeline-data.js';
 import {booksMarkup,books,bookURL,booksBase} from './books.js';
 import {setupMembership, membershipShell, loadMembership} from './membership.js';
 let cleanupMembership = () => {};
@@ -31,12 +34,13 @@ const normalize=value=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toL
 function searchResults(slug){const term=new URLSearchParams(location.search).get('q')?.trim()||'';const words=normalize(term).split(/\s+/).filter(Boolean);const found=words.length?indexEntries(slug).filter(e=>words.every(word=>normalize(e.title+' '+e.description+' '+e.section).includes(word))):[];return `<section id="conteudo" class="content-panel" tabindex="-1" aria-labelledby="content-title"><p class="eyebrow">BUSCA · ${slug?sections[slug].name:'TODAS AS SEÇÕES'}</p><h2 id="content-title">${term?'Resultados para “'+escapeHTML(term)+'”':'Digite um termo para buscar'}</h2><p>A busca consulta os títulos e descrições cadastrados. Os livros do Antigo Testamento já possuem estudos; outras coleções estão em preparação.</p><p role="status">${found.length} resultado${found.length!==1?'s':''} encontrado${found.length!==1?'s':''}.</p><div class="search-results">${found.map(e=>`<a class="catalog-entry" href="${e.url}"><small>${e.type} · ${e.section}</small><h3>${e.title}</h3><p>${e.description}</p><span>Abrir resultado ›</span></a>`).join('')}</div><a class="back-link" href="${slug?'/'+slug:'/'}">← Voltar ${slug?'ao menu de '+sections[slug].name:'ao início'}</a></section>`}
 
 const historyId=order=>`cena-${String(order).replace('.', '-')}`;
-const historyConnections=[...timelineConnections,...kingdomsConnections,...genesisConnections,...exodoConnections,...pentateuchConnections];
+const historyConnections=[...timelineConnections,...kingdomsConnections,...genesisConnections,...exodoConnections,...pentateuchConnections,...joshuaConnections,...judgesConnections,...monarchyConnections];
 
 function historyContext(event, hasImage){
   if(!event.context)return '';
   const related=kingdomsTextConnections.get(event.order)||[];
   const [photographer, photoURL, photoLicense]=event.imageCredit||[];
+  const contextImages=event.contextImages||(event.contextImage?[event.contextImage]:[]);
   const rows=[
     ['Local',event.location],
     ['Período e certeza',event.certainty?[event.date,event.certainty].filter(Boolean).join(' · '):event.period||event.date],
@@ -49,6 +53,17 @@ function historyContext(event, hasImage){
       <dl>${rows.filter(([,value])=>value).map(([term,value])=>`<dt>${term}</dt><dd>${escapeHTML(value)}</dd>`).join('')}</dl>
       <p>${escapeHTML(event.context)}</p>
       ${event.route?`<h3>Itinerário esquemático</h3><ol class="history-route">${event.route.map(stop=>`<li>${escapeHTML(stop)}</li>`).join('')}</ol>`:''}
+      ${event.cycle?`<h3>Padrão recorrente do relato</h3><ol class="history-route">${event.cycle.map(step=>`<li>${escapeHTML(step)}</li>`).join('')}</ol>`:''}
+      ${event.riverMap?`<h3>Mapa esquemático · sem escala</h3><div class="history-river-map">
+        <div><strong>Oeste</strong><ul>${event.riverMap.west.map(place=>`<li>${escapeHTML(place)}</li>`).join('')}</ul></div>
+        <span>Jordão</span>
+        <div><strong>Leste</strong><ul>${event.riverMap.east.map(place=>`<li>${escapeHTML(place)}</li>`).join('')}</ul></div>
+      </div>`:''}
+      ${event.regions?`<h3>Reinos depois da divisão · sem escala</h3><ul class="history-region-map">${event.regions.map(region=>`<li>${escapeHTML(region)}</li>`).join('')}</ul>`:''}
+      ${contextImages.map(({path,caption})=>`<figure class="history-context-image">
+        <img src="${escapeHTML(path)}" alt="${escapeHTML(caption)}" loading="lazy" decoding="async">
+        <figcaption>${escapeHTML(caption)}${event.side==='biblical'?' · Reconstrução artística.':''}</figcaption>
+      </figure>`).join('')}
       ${photoURL?`<p><a href="${escapeHTML(photoURL)}" target="_blank" rel="noopener noreferrer">Foto original</a>${photoLicense?` · <a href="${escapeHTML(photoLicense)}" target="_blank" rel="noopener noreferrer">Licença da foto</a>`:''}</p>`:''}
       ${related.length?`<h3>Conexões bíblicas</h3><ul>${related.map(([type,reference])=>`<li><strong>${escapeHTML(type)}</strong> · ${escapeHTML(reference)}</li>`).join('')}</ul>`:''}
       ${event.sources?.length?`<h3>Fontes históricas</h3><ul>${event.sources.map(([label,url])=>`<li><a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a></li>`).join('')}</ul>`:''}
@@ -122,17 +137,6 @@ function timelineMarkup(){
     {order:69,side:'historical',date:'1595 a.C.',title:'A antiga Babilônia',description:'Uma incursão hitita alcança Babilônia, marcando o fim do período paleobabilônico.',source:'https://www.metmuseum.org/ko/essays/babylon',image:'/assets/linha-do-tempo/antiga-babilonia.webp',imageWidth:1000,imageHeight:563,imageNote:'Reconstrução ilustrativa'}
   );
   const byOrder=new Map(events.map(event=>[event.order,event]));
-  for(const event of [...genesisEvents,...exodoEvents,...pentateuchEvents]){
-    byOrder.set(event.order,{
-      ...byOrder.get(event.order),
-      side:'biblical', chronology:'narrative', date:'Data não estabelecida', genesis:true,
-      ...event,
-    });
-  }
-  for(const event of [...genesisHistoricalEvents,...exodoHistoricalEvents,...pentateuchHistoricalEvents]){
-    byOrder.set(event.order,{side:'historical',genesis:true,...event});
-  }
-  byOrder.get(21).sequence=13.2;
   for(const event of kingdomsEvents){
     const previous=byOrder.get(event.order);
     const image=event.artwork
@@ -140,6 +144,17 @@ function timelineMarkup(){
       : {};
     byOrder.set(event.order,{side:'biblical',...previous,...event,...image});
   }
+  for(const event of [...genesisEvents,...exodoEvents,...pentateuchEvents,...joshuaEvents,...judgesEvents,...monarchyEvents,...monarchyParallelEvents]){
+    byOrder.set(event.order,{
+      ...byOrder.get(event.order),
+      side:'biblical', chronology:'narrative', date:'Data não estabelecida', genesis:true,
+      ...event,
+    });
+  }
+  for(const event of [...genesisHistoricalEvents,...exodoHistoricalEvents,...pentateuchHistoricalEvents,...joshuaHistoricalEvents,...judgesHistoricalEvents,...monarchyHistoricalEvents]){
+    byOrder.set(event.order,{side:'historical',genesis:true,...event});
+  }
+  byOrder.get(21).sequence=13.2;
   const ordered=[...byOrder.values()].filter(event=>event.chronology!=='undated').sort((a,b)=>(a.sequence??a.order)-(b.sequence??b.order));
   const undated=kingdomsEvents.filter(event=>event.chronology==='undated').map(event=>byOrder.get(event.order));
   const undatedSection=`<section id="cronologia-incerta" class="history-undated" aria-labelledby="history-undated-title">
@@ -151,7 +166,7 @@ function timelineMarkup(){
     <div class="history-overview">
     <div class="history-heading"><p class="eyebrow">UMA JORNADA ATRAVÉS DAS ERAS</p><h1>Linha do Tempo</h1><p>As Escrituras e a história da humanidade ao longo do tempo.</p></div>
     <div class="history-intro"><span>HISTÓRIA DA HUMANIDADE</span><span>EVENTOS BÍBLICOS</span></div>
-    <p class="history-note">No Pentateuco, os acontecimentos seguem a ordem da narrativa bíblica. De Levítico a Deuteronômio, os anos são contados a partir da saída do Egito. Os registros da História da Humanidade seguem as datas das fontes. A posição dos registros junto às cenas bíblicas indica relação editorial. A distância entre cartões não representa uma escala de tempo. Abra <strong>Contexto</strong> para ver as fontes ou <strong>Concordância Bíblica</strong> para consultar as passagens relacionadas.</p>
+    <p class="history-note">Até a divisão do reino, os acontecimentos seguem a sequência dos relatos bíblicos e indicam os episódios que se sobrepõem. De Levítico a Deuteronômio, os anos são contados a partir da saída do Egito. Os registros da História da Humanidade seguem as datas das fontes. A posição dos registros junto às cenas bíblicas indica relação editorial. A distância entre cartões não representa uma escala de tempo. Abra <strong>Contexto</strong> para ver as fontes ou <strong>Concordância Bíblica</strong> para consultar as passagens relacionadas.</p>
     </div>
     <div class="history-track"><div class="history-active-line" aria-hidden="true" hidden></div>${ordered.map(event=>`${event.order===236?undatedSection:''}${event.heading?`<h2 class="history-era-heading">${escapeHTML(event.heading)}</h2>`:''}${historyCard(event,byOrder)}`).join('')}</div>
     <p class="history-end">Mais acontecimentos serão adicionados a esta jornada.</p><a class="history-back" href="/">← Voltar ao início</a>

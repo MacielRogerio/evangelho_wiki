@@ -344,7 +344,7 @@ export const exodoHistoricalEvents = [
   },
   {
     order: 1254, sequence: 92.5, date: 'c. 1208 a.C.', title: 'A Estela de Merneptá menciona Israel',
-    description: 'A inscrição egípcia menciona Israel em um relato de campanha em Canaã. É a mais antiga menção extrabíblica conhecida a Israel.',
+    description: 'A inscrição egípcia menciona Israel e Gezer em um relato de campanha em Canaã. É a mais antiga menção extrabíblica conhecida a Israel.',
     location: 'Tebas, Egito', source: posen, credit: 'Posen Library',
     context: 'A data se refere à inscrição, que situa Israel no horizonte de Canaã. Sua posição ao lado dos relatos bíblicos é editorial.',
     sources: [['Tradução da inscrição na Posen Library', posen], ['Universidade de Chicago', isac]],

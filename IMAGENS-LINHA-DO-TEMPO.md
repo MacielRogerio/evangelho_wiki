@@ -399,3 +399,55 @@ As ilustrações bíblicas geradas têm nomes `pentateuco-NN.png` em `Imagens Li
 | Deir ‘Alla | `pentateuco-historia-deir-alla.webp` | Fragmentos de reboco no Museu da Jordânia. [Jona Lendering, Livius, CC0 1.0](https://www.livius.org/pictures/jordan/deir-alla/deir-alla-inscription/). Convertida para WebP |
 
 Os três JPEGs de origem estão em `Imagens Linha do Tempo/Historia da Humanidade/`. Mesa e Deir ‘Alla aparecem na época dos reis, ligadas às cenas anteriores de Moabe e Balaão.
+
+## Josué
+
+A etapa segue `Imagens Linha do Tempo/Livros/josue-linha-do-tempo-evangelho-wiki.docx`. Os 22 cartões bíblicos vão da sucessão de Moisés à morte de Josué e ao sepultamento dos ossos de José. Os 178 versículos selecionados estão no controle **Versículos selecionados** com a numeração e o crédito da Bíblia Livre. O período bíblico usa as indicações do texto, incluindo o dia 10 do primeiro mês em Gilgal e a Páscoa no dia 14. Os esquemas em **Contexto** situam as tribos e cidades de refúgio em relação ao Jordão e registram a sequência da campanha do sul.
+
+As ilustrações novas são `josue-NN.png` em `Imagens Linha do Tempo/Historia Biblica/`, com os WebPs de mesmo nome em `assets/linha-do-tempo/`. As cenas 04, 08 e 15 preservam as âncoras e imagens da travessia do Jordão (`0090.webp`), Jericó (`0091.webp`) e da partilha (`0092.webp`). A cena 19 reutiliza a ilustração das cidades de refúgio de Números, com identificação no cartão.
+
+| Registro histórico | Imagem | Crédito |
+| --- | --- | --- |
+| Tell es-Sultan no fim do Bronze Médio | `josue-historia-jerico.webp` | Vista aérea do sítio. [Fullo88, domínio público](https://commons.wikimedia.org/wiki/File:Tell_es-sultan.jpg) |
+| Cartas de Amarna | `josue-historia-amarna.webp` | Foto da EA 299. Osama Shukir Muhammed Amin, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Redimensionada e convertida para WebP. A EA 297 é vinculada no cartão como fonte. |
+| Destruição de Hazor | `pentateuco-historia-hazor.webp` | Reaproveitamento da fotografia do palácio cananeu reconstituído. [Almog, domínio público](https://commons.wikimedia.org/wiki/File:Hatzorpalace.jpg) |
+| Estela de Merneptá | `exodo-historia-mernepta.webp` | Cartão e imagem reaproveitados de Êxodo. A data é da inscrição. |
+
+Em **Contexto**, Gilgal e Jericó têm quadros adicionais. Os arquivos são `josue-gilgal-memoria` e `josue-raabe-resgate`, com PNGs e WebPs nas mesmas pastas das cenas bíblicas.
+
+Os dois JPEGs de origem estão em `Imagens Linha do Tempo/Historia da Humanidade/`.
+
+## Juízes
+
+A etapa segue `Imagens Linha do Tempo/Livros/juizes-linha-do-tempo-evangelho-wiki.docx`. As 23 entradas do documento aparecem em 24 cartões, incluindo o quadro breve de Ibsã, Elom e Abdom. Os 201 versículos selecionados preservam a numeração e o crédito da Bíblia Livre. A ordem segue o relato. As durações bíblicas podem se sobrepor em regiões diferentes. Juízes 17–21 e a abertura de Rute recebem a indicação de data não fixada.
+
+Os PNGs novos são `juizes-NN.png` e os quadros complementares `juizes-eude-trombeta.png`, `juizes-cantico-debora.png`, `juizes-gideao-la.png`, `juizes-efode-ofra.png`, `juizes-parabola-jotao.png` e `juizes-sansao-agua.png`. Estão em `Imagens Linha do Tempo/Historia Biblica/`, com WebPs correspondentes em `assets/linha-do-tempo/`. Otniel e Débora preservam as âncoras e as imagens `0093.webp` e `0100.webp`. A mudança de geração reaproveita a imagem do encerramento de Josué.
+
+| Registro histórico | Imagem | Crédito |
+| --- | --- | --- |
+| Estela de Merneptá | `exodo-historia-mernepta.webp` | Cartão e reconstrução artística reaproveitados |
+| Medinet Habu | `juizes-historia-medinet-habu.webp` | [Antonio Beato, Arquivo do Museo Egizio, CC0 1.0](https://commons.wikimedia.org/wiki/File:Theban_region,_Medinet_Habu,_19th_century_pictures,_1870-1896,_photo_45_of_51_-_Archivio_fotografico_Museo_Egizio,_Turin_INV10_008.jpg) |
+| Ascalom | `juizes-historia-ascalom.webp` | [Bukvoed, CC BY 3.0](https://commons.wikimedia.org/wiki/File:Ashkelon-archaeological-park-684.jpg) |
+| Cerâmica filisteia, contexto de Ascalom | `juizes-historia-ceramica.webp` | [Peter Hagyo-Kovacs, CC BY-SA 3.0](https://commons.wikimedia.org/wiki/File:Bichrome_pottery.jpg), peça para comparação regional |
+| Tel Dã | `juizes-historia-tel-da.webp` | [Bukvoed, CC BY 4.0](https://commons.wikimedia.org/wiki/File:Tel-Dan-NS-13713.jpg) |
+| Khirbet al-Ra‘i | `juizes-historia-khirbet-al-rai.webp` | [Tombah, CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Khirbet_er-Rai.jpg), fotografia do sítio. A publicação do achado mostra a inscrição. |
+
+Os cinco JPEGs de origem estão em `Imagens Linha do Tempo/Historia da Humanidade/`. As cópias WebP foram convertidas para o site e redimensionadas quando necessário.
+
+## Dos juízes à monarquia
+
+A etapa usa `Imagens Linha do Tempo/Livros/dos-juizes-a-monarquia-linha-do-tempo-evangelho-wiki-revisado.docx`. Os 31 cartões do roteiro preservam os 322 versículos selecionados. Os quatro cartões paralelos tratam da casa de Eli, da Arca em Quiriate-Jearim, do governo de Isbosete e do trabalho na construção do Templo. A abertura de Rute reaproveita a âncora `cena-1523`. As demais âncoras reaproveitadas são `101`, `102`, `103`, `104`, `105`, `110-2`, `111`, `114`, `115`, `120`, `121`, `122` e `130`.
+
+Os PNGs das novas cenas bíblicas começam por `monarquia-` em `Imagens Linha do Tempo/Historia Biblica/`. Os nomes numerados correspondem à entrada do Word. Os nomes descritivos correspondem a cartões paralelos ou a quadros de **Contexto**. A mesma base de nome identifica os WebPs em `assets/linha-do-tempo/`.
+
+| Registro | WebP | Referência visual |
+| --- | --- | --- |
+| Gate | `monarquia-historia-gate.webp` | Shlomo Roded, PikiWiki Israel, CC BY 2.5. A cerâmica regional de comparação é reaproveitada de Juízes. |
+| Siló | `monarquia-historia-silo.webp` | Bukvoed, CC BY 4.0. Recipientes expostos como referência de cultura material. |
+| Timna | `monarquia-historia-timna.webp` | Reconstrução artística de fundição na Arabá. |
+| Qeiyafa | `monarquia-historia-qeiyafa.webp` | Zeev Stein, Heritage Conservation Outside The City / PikiWiki Israel, CC BY 2.5. |
+| Gezer | `monarquia-historia-gezer.webp` | Ian Scott, CC BY-SA 2.0. Portão de seis câmaras. |
+| Karnak | `monarquia-historia-karnak.webp` | Olaf Tausch, CC BY 3.0. Portal Bubástida. |
+| Estela de Tel Dã | `monarquia-historia-tel-da.webp` | Oren Rozen, CC BY-SA 4.0. Fragmentos expostos no Museu de Israel. |
+
+Os JPEGs de origem e o PNG de Timna ficam em `Imagens Linha do Tempo/Historia da Humanidade/`. Os cartões registram as fontes, os créditos e as licenças. As datas arqueológicas e as posições editoriais preservam o alcance de cada evidência.

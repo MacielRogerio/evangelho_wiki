@@ -6,7 +6,7 @@ import {createMembership,membershipConfig} from './backend/membership.mjs';
 export function createApplication({root=process.cwd(),config=membershipConfig()}={}) {
 const membership=createMembership(config);
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml','.ttf':'font/ttf','.mp4':'video/mp4'};
-const publicFiles=new Set(['index.html','style.css','sections.css','app.js','sections.js','books.js','books-data.js','books.css','timeline-page.css','timeline-data.js','genesis-timeline-data.js','exodo-timeline-data.js','pentateuch-timeline-data.js','golden-light.js','membership.js','membership.css']);
+const publicFiles=new Set(['index.html','style.css','sections.css','app.js','sections.js','books.js','books-data.js','books.css','timeline-page.css','timeline-data.js','genesis-timeline-data.js','exodo-timeline-data.js','pentateuch-timeline-data.js','joshua-timeline-data.js','judges-timeline-data.js','monarchy-timeline-data.js','golden-light.js','membership.js','membership.css']);
 const appRoute=/^\/(?:antigo-testamento|novo-testamento|atualidade|linha-do-tempo|busca|recursos|sobre|associados|administracao)(?:\/[^.]*)?\/?$/;
 const server=http.createServer(async(req,res)=>{
   res.setHeader('X-Content-Type-Options','nosniff');
