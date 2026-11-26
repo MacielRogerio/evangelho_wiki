@@ -33,6 +33,26 @@ for(const [slug,s] of Object.entries(sections)){
 }
 await page.goto(`${base}/atualidade`);await page.locator('#search').fill('tecnologia');await page.locator('#search-form button').click();check(await page.locator('.search-results h3').textContent()==='Atualidade','Busca por botão e descrição');await page.locator('#focus-search').click();await page.locator('#search').fill('<img src=x onerror=alert(1)>');await page.locator('#search').press('Enter');check(await page.locator('#content-title img').count()===0,'Escape de busca');
 await page.goto(`${base}/novo-testamento`);await page.locator('.collection-card').first().focus();await page.keyboard.press('Enter');check(await page.locator('#content-title').textContent()==='Evangelhos','Ativação por teclado');await page.emulateMedia({reducedMotion:'reduce'});check(await page.locator('.collection-card').first().evaluate(e=>getComputedStyle(e).transitionDuration)==='0s','Movimento reduzido');
+await page.goto(`${base}/linha-do-tempo`);
+const timelineImages = await page.locator('.history-event').evaluateAll(cards => cards.map(card => ({
+  id:card.id,
+  url:card.querySelector('.history-artwork img')?.src,
+})));
+check(timelineImages.length > 0, 'Linha do tempo carregada');
+const missingImages = timelineImages.filter(({url}) => !url).map(({id}) => id);
+check(missingImages.length === 0, 'Cartões sem imagem: '+missingImages.join(', '));
+const brokenImages = await page.evaluate(async images => {
+  const broken = [];
+  for (let offset = 0; offset < images.length; offset += 12) {
+    await Promise.all(images.slice(offset, offset + 12).map(async ({id,url}) => {
+      const image = new Image();
+      image.src = url;
+      try { await image.decode(); } catch { broken.push(id); }
+    }));
+  }
+  return broken;
+}, timelineImages);
+check(brokenImages.length === 0, 'Imagens da linha do tempo indisponíveis: '+brokenImages.join(', '));
 check(errors.length===0,'Sem erros JavaScript: '+errors.join('; '));
-console.log(`PASS: ${checks} verificações; seis entradas, dezoito cartões, três estudos, nove tópicos, catálogos, busca, recarga, histórico, teclado e celular.`);
+console.log(`PASS: ${checks} verificações; seis entradas, dezoito cartões, três estudos, nove tópicos, catálogos, busca, recarga, histórico, teclado, celular e imagens da linha do tempo.`);
 }finally{await browser.close()}
