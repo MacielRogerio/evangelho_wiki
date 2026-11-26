@@ -128,8 +128,10 @@ function historyCard(event, eventsByOrder){
         <small>${reference}</small>
         <a class="history-return" data-history-return hidden>Voltar à passagem de origem</a>
       </div>
-      ${historyContext(event,Boolean(event.image))}
-      ${links.length?`<details class="history-links"><summary><span class="history-links-label">Concordância Bíblica</span> (${links.length})</summary><ul>${links.join('')}</ul></details>`:''}
+      ${event.context||event.imageCredit||links.length?`<div class="history-panels">
+        ${historyContext(event,Boolean(event.image))}
+        ${links.length?`<details class="history-links"><summary><span class="history-links-label">Concordância Bíblica</span> (${links.length})</summary><ul>${links.join('')}</ul></details>`:''}
+      </div>`:''}
       ${historyScripture(event.scripture)}
     </div>
   </article>`;
@@ -224,45 +226,14 @@ function setupHistory(){
   updateOffsets();
   cleanupHistory=()=>observer.disconnect();
   const track=main.querySelector('.history-track');
+  track.addEventListener('toggle',updateHistoryLine,true);
   track.addEventListener('keydown',event=>{
-    const context=event.target.closest('.history-context[open]');
-    if(event.key==='Escape'&&context){
-      context.open=false;
-      context.querySelector('summary').focus();
+    const panel=event.target.closest('.history-panels details[open]');
+    if(event.key==='Escape'&&panel){
+      panel.open=false;
+      panel.querySelector('summary').focus();
     }
   });
-  for(const card of track.querySelectorAll('.history-event-card')){
-    const details=card.querySelector('.history-links');
-    if(!details)continue;
-    const summary=details.querySelector('summary');
-    const label=summary.querySelector('.history-links-label');
-    let preview=false;
-    label.addEventListener('pointerenter',event=>{
-      if(event.pointerType!=='mouse'||details.open||!matchMedia('(min-width: 1280px) and (hover: hover)').matches)return;
-      preview=true;
-      details.open=true;
-    });
-    card.addEventListener('pointerover',event=>{
-      if(event.pointerType==='mouse'&&preview&&!details.contains(event.target)){
-        details.open=false;
-        preview=false;
-      }
-    });
-    card.addEventListener('pointerleave',()=>{
-      if(preview&&!details.contains(document.activeElement))details.open=false;
-      preview=false;
-    });
-    summary.addEventListener('click',event=>{
-      if(preview)event.preventDefault();
-      preview=false;
-    });
-    details.addEventListener('keydown',event=>{
-      if(event.key==='Escape'){
-        details.open=false;
-        summary.focus();
-      }
-    });
-  }
   track.addEventListener('click',event=>{
     const link=event.target.closest('[data-history-link],[data-history-return]');
     if(!link||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
