@@ -59,6 +59,9 @@
 .history-undated{position:relative;padding:20px 12px 0;background:#071a35;border-block:1px solid #8d714c;text-align:center}
 .history-undated>h2{margin:0;color:#ffd097;font-size:22px}
 .history-undated>p{margin:8px 0 20px;color:#d1daea}
+.history-shared-artwork{width:min(100%,640px);margin:0 auto 18px}
+.history-shared-artwork img{display:block;width:100%;height:auto;border-radius:10px}
+.history-shared-artwork figcaption{margin-top:6px;color:#b9c7dd;font-size:12px}
 .history-undated-events{display:flex;justify-content:center;gap:24px;text-align:left}
 .history-undated-events .history-event.biblical{width:min(48%,480px);margin:0;padding:0 0 22px}
 .history-undated-events .history-event-card{width:100%}
@@ -213,20 +216,24 @@
 .history-region-map li{padding:8px;border-left:2px solid #e8b880;border-radius:4px;background:#10284a}
 
 .history-event-card.history-spiritual-card {
-  --history-focus-border:#ffda65;
-  border:4px dashed #ffda65;
+  --history-spiritual-color:#73dc9c;
+  --history-focus-border:var(--history-spiritual-color);
+  border:4px dashed var(--history-spiritual-color);
+}
+.history-event-card.history-spiritual-opposition {
+  --history-spiritual-color:#ffda65;
 }
 .history-spiritual-label {
   display:block;
   margin-bottom:4px;
-  color:#ffdf7a;
+  color:var(--history-spiritual-color);
   font-weight:bold;
 }
 .history-event-card.history-inline-date {
   --history-meta-height:0px;
 }
 .history-event:focus-visible .history-spiritual-card {
-  outline:2px solid #fff0ae;
+  outline:2px solid var(--history-spiritual-color);
   outline-offset:3px;
 }
 

@@ -36,9 +36,10 @@ await page.goto(`${base}/novo-testamento`);await page.locator('.collection-card'
 await page.goto(`${base}/linha-do-tempo`);
 const timelineImages = await page.locator('.history-event').evaluateAll(cards => cards.map(card => ({
   id:card.id,
-  url:card.querySelector('.history-artwork img')?.src,
+  url:(card.querySelector('.history-artwork img') || document.getElementById(card.dataset.sharedArtwork)?.querySelector('img'))?.src,
 })));
 check(timelineImages.length > 0, 'Linha do tempo carregada');
+check(await page.locator('#cronologia-incerta img').count() === 1, 'Uma ilustração compartilhada para Joel');
 const missingImages = timelineImages.filter(({url}) => !url).map(({id}) => id);
 check(missingImages.length === 0, 'Cartões sem imagem: '+missingImages.join(', '));
 const brokenImages = await page.evaluate(async images => {

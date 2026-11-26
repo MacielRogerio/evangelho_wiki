@@ -1511,6 +1511,10 @@ export const divisionConnections = [
 export const spiritualConflicts = new Set([
   20,21,25,113,132.6,135,1510,192.5,195.1,340,355,356,421,730,780,784,790,799,800,800.1
 ]);
+// Cenas em que a ação do adversário ou de espíritos malignos é parte explícita do relato.
+export const spiritualOpposition = new Set([
+  20,21,25,113,132.6,192.5,195.1,340,355,356,421,780,784,790,800,800.1
+]);
 export const spiritualEvents = new Set([
   10,40,60,63,64,1013,1014,1017,1018,1022,1024,1027,1028,1032,
   1206,1210,70.2,1212,1213,71,1216,1217,1219,1221,1224,80,81.1,
@@ -1523,6 +1527,7 @@ export const spiritualEvents = new Set([
 
 // Ilustrações e fontes visuais das fichas acrescentadas nesta etapa.
 const divisionIllustrations = [
+  [130.3, "reinos-semaias"],
   [130.6, "reinos-azarias"],
   [130.8, "reinos-onri"],
   [131.3, "reinos-horebe"],
@@ -1561,8 +1566,6 @@ const divisionIllustrations = [
 const divisionPhotographs = [
   [233.5, "reinos-elefantina", 1120, 868, "Verso da petição de Elefantina. Berlim, papiro P. 13495.",
     ["Sandra Steiß · Staatliche Museen zu Berlin, Ägyptisches Museum und Papyrussammlung", "https://search.smb.museum/object/obj-823546", "https://creativecommons.org/licenses/by-sa/4.0/"]],
-  [130.3, "monarquia-historia-karnak", 1100, 824, "Portal Bubástida em Karnak, onde foi registrada a campanha de Shoshenq I.",
-    ["Olaf Tausch", "https://commons.wikimedia.org/wiki/File:Karnak_Tempel_Bubastis-Portal_01.JPG", "https://creativecommons.org/licenses/by/3.0/"]],
   [132.4, "reinos-kurkh", 450, 995, "Estela de Salmaneser III encontrada em Curque. British Museum, BM 118884.",
     ["Jona Lendering", "https://www.livius.org/pictures/turkey/kurkh/kurkh-stela/", "https://creativecommons.org/publicdomain/zero/1.0/"]],
   [133.3, "pentateuco-historia-mesa", 709, 1100, "Estela de Mesa, rei de Moabe, com a perspectiva moabita sobre o conflito.",

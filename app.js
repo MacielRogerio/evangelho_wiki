@@ -1,4 +1,4 @@
-import {timelineImages, timelineAdditions, timelineConnections, kingdomsEvents, kingdomsConnections, kingdomsArtwork, kingdomsTextConnections, divisionNarrative, additionalHistory, divisionUpdates, spiritualContinuityEvents, divisionConnections, divisionArtwork, spiritualEvents, spiritualConflicts} from './timeline-data.js?v=acervo-completo';
+import {timelineImages, timelineAdditions, timelineConnections, kingdomsEvents, kingdomsConnections, kingdomsArtwork, kingdomsTextConnections, divisionNarrative, additionalHistory, divisionUpdates, spiritualContinuityEvents, divisionConnections, divisionArtwork, spiritualEvents, spiritualConflicts, spiritualOpposition} from './timeline-data.js?v=cena-semaias';
 import {genesisEvents, genesisHistoricalEvents, genesisConnections} from './genesis-timeline-data.js?v=genesis-linha-do-tempo';
 import {exodoEvents, exodoHistoricalEvents, exodoConnections} from './exodo-timeline-data.js';
 import {pentateuchEvents, pentateuchHistoricalEvents, pentateuchConnections, pentateuchScriptureCredit} from './pentateuch-timeline-data.js';
@@ -84,7 +84,7 @@ function historyScripture(passages){
   </details>`;
 }
 
-function historyCard(event, eventsByOrder){
+function historyCard(event, eventsByOrder, sharedArtworkId){
   const id=historyId(event.order);
   const edges=historyConnections.filter(([from,to])=>from===event.order||to===event.order);
   if(event.relatedScene && !edges.some(([from,to])=>from===event.relatedScene||to===event.relatedScene)){
@@ -104,7 +104,7 @@ function historyCard(event, eventsByOrder){
     ? `<a href="${escapeHTML(event.source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.credit||'Metropolitan Museum of Art')} ↗</a>`
     : `<strong>${escapeHTML(event.source)}</strong>`;
   const date=event.chronology==='undated'||event.chronology==='narrative'||/(?:\d|século|séc\.)/i.test(event.date||'')?event.date:'';
-  const hasArtwork=Boolean(event.image||event.artwork);
+  const hasArtwork=!sharedArtworkId&&Boolean(event.image||event.artwork);
   const inCardDate=event.dateInCard&&event.date;
   const spiritualLabel=event.side==='biblical'&&(spiritualConflicts.has(event.order)
     ? 'Conflito espiritual'
@@ -112,8 +112,8 @@ function historyCard(event, eventsByOrder){
   const comments=[event.subtitle,event.description,event.imageNote].filter(Boolean);
   const narrative=event.chronology==='narrative';
   const titleTag=narrative?'h3':'h2';
-  return `<article id="${id}" class="history-event ${event.side}" tabindex="-1" aria-labelledby="${id}-title">
-    <div class="history-event-card${hasArtwork?'':' history-text-card'}${event.genesis?' history-genesis-card':''}${event.imageCredit?' history-documentary-card':''}${spiritualLabel?' history-spiritual-card':''}${inCardDate?' history-inline-date':''}">
+  return `<article id="${id}" class="history-event ${event.side}" tabindex="-1" aria-labelledby="${id}-title"${sharedArtworkId?` data-shared-artwork="${sharedArtworkId}"`:''}>
+    <div class="history-event-card${hasArtwork?'':' history-text-card'}${event.genesis?' history-genesis-card':''}${event.imageCredit?' history-documentary-card':''}${spiritualLabel?' history-spiritual-card':''}${spiritualLabel&&spiritualOpposition.has(event.order)?' history-spiritual-opposition':''}${inCardDate?' history-inline-date':''}">
       <div class="history-connector">${date&&!inCardDate?`<span class="history-date">${escapeHTML(date)}</span>`:''}</div>
       ${event.section||inCardDate?`<div class="history-editorial-heading"><span class="history-classification">${escapeHTML([event.chronology==='undated'?event.date:event.section,inCardDate].filter(Boolean).join(' · '))}${event.chronology==='thematic'?' · posição temática':''}</span><h2 id="${id}-title">${escapeHTML(event.title)}</h2></div>`:`<span class="history-area">${event.side==='historical'?'História da Humanidade':'Evento bíblico'}</span><${titleTag} id="${id}-title">${escapeHTML(event.title)}</${titleTag}>`}
       ${comments.length?`<div class="history-comments"${event.genesis?'':' role="region" aria-label="Comentários" tabindex="0"'}>
@@ -174,10 +174,16 @@ function timelineMarkup(){
   byOrder.get(21).sequence=13.2;
   const ordered=[...byOrder.values()].filter(event=>event.chronology!=='undated').sort((a,b)=>(a.sequence??a.order)-(b.sequence??b.order));
   const undated=kingdomsEvents.filter(event=>event.chronology==='undated').map(event=>byOrder.get(event.order));
+  const joelArtwork=byOrder.get(165);
+  const joelArtworkId='joel-ilustracao';
   const undatedSection=`<section id="cronologia-incerta" class="history-undated" aria-labelledby="history-undated-title">
     <h2 id="history-undated-title">Data discutida</h2>
     <p>O livro de Joel não menciona um rei. Uma data no período persa é possível. As mensagens ficam fora da sequência datada.</p>
-    <div class="history-undated-events">${undated.map(event=>historyCard(event,byOrder)).join('')}</div>
+    <figure class="history-shared-artwork" id="${joelArtworkId}">
+      <img src="${escapeHTML(joelArtwork.image)}" alt="Pessoas de várias gerações reunidas sob um céu iluminado" width="${joelArtwork.imageWidth||1000}" height="${joelArtwork.imageHeight||563}" loading="lazy" decoding="async">
+      <figcaption>Ilustração compartilhada dos relatos de Joel 2.</figcaption>
+    </figure>
+    <div class="history-undated-events">${undated.map(event=>historyCard(event,byOrder,joelArtworkId)).join('')}</div>
   </section>`;
   return `<div class="history-page" id="conteudo" tabindex="-1">
     <div class="history-heading"><p class="eyebrow">UMA JORNADA ATRAVÉS DAS ERAS</p><h1>Linha do Tempo</h1><p>As Escrituras e a história da humanidade ao longo do tempo.</p></div>
